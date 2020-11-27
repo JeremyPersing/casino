@@ -2,10 +2,9 @@ import React, {useState} from 'react';
 
 
 const Blackjack = () => {
-    //const [userCards, setUserCards] = useState([]);
-    const [userTotal, setUserTotal] = useState(0);
-    const [compTotal, setCompTotal] = useState(0);
-    const [userCardArr, setUserCardArr] = useState([]);
+    const [userTotal, setUserTotal] = useState(0);  // Used to hold and display user's total
+    const [compTotal, setCompTotal] = useState(0);  // Used to hold and display comp's total
+    const [userCardArr, setUserCardArr] = useState([]);  // Holds the user's card values
 
 
     const play = () => {
@@ -38,38 +37,42 @@ const Blackjack = () => {
         // Get the total player's current total
         let total = determineTotal(arr);
         setUserTotal(total);
+        if (total === 21) {
+            setTimeout(() => {dealerTotal(total)}, 200);
+        }
     }
     
 
     // Function that adds one more cards to the player's total
     const hit = () => {
-        if (userTotal < 21) {
-            // Deal another card
-            let card = randomCard();
+        // Deal another card
+        let card = randomCard();
+        console.log(userTotal + card);
 
-            // Place the card in the user's card array
-            setUserCardArr(arr => [...arr, card]);
+        // Place the card in the user's card array
+        setUserCardArr(arr => [...arr, card]);
             
-            // Create a clone of the user's card array and push the new card into it
-            let arr = [...userCardArr];
-            arr.push(card);
+        // Create a clone of the user's card array and push the new card into it
+        let arr = [...userCardArr];
+        arr.push(card);
 
-            // Get the user's new total
-            let total = determineTotal(arr);
-            setUserTotal(total);
-        }
-        else if (userTotal === 21) {
-            dealerTotal();
-        }
-        else {
-            alert('You Bust');
-        }
+        // Get the user's new total
+        let total = determineTotal(arr);
+        setUserTotal(total);
 
+        
+        // Account for if that new card will equal 21 or be over it
+        if (userTotal + card === 21) {
+            dealerTotal((userTotal + card));
+        }
+        else if (userTotal + card > 21) {
+            setTimeout(() => {alert('You bust')}, 100);
+        }
     }
 
     // Function that ends the game and reveals the dealer's total
     const stand = () => {
-        dealerTotal(); // Determine the dealer's total
+        dealerTotal(userTotal); // Determine the dealer's total
     }
 
     // Function that determines the value of the cards
@@ -92,7 +95,7 @@ const Blackjack = () => {
         return total;
     } 
 
-    const dealerTotal = () => {
+    const dealerTotal = (playerTotal) => {
         // The dealer must deal themself two cards
         let dCards = [];
         let cardOne = randomCard();
@@ -112,35 +115,35 @@ const Blackjack = () => {
         }
         setCompTotal(dTotal);
         
-        setTimeout(() => {compareTotals(dTotal)}, 1000);
+        setTimeout(() => {compareTotals(playerTotal, dTotal)}, 100);
     }
 
-    const compareTotals = (dealerTotal) => {
-        console.log('User Total: ' + userTotal);
+    const compareTotals = (playerTotal, dealerTotal) => {
+        console.log('User Total: ' + playerTotal);
         console.log('Comp Total: ' + dealerTotal);
         // The user has 21 and the dealer does not
-        if (userTotal === 21 && dealerTotal !== 21) {
-            alert('You won');
+        if (playerTotal === 21 && dealerTotal !== 21) {
+            alert('You won user has 21 and the dealer does not');
         }
         // Both the user and dealer have the same total
-        else if (userTotal === dealerTotal) {
+        else if (playerTotal === dealerTotal) {
             alert('Tie');
         }
         // The user busted
-        else if (userTotal > 21) {
-            alert('You lost');
+        else if (playerTotal > 21) {
+            alert('You lost user busted');
         }
         // The user has a total under 21 and a higher total than the dealer
-        else if (userTotal < 21 && userTotal > dealerTotal) {
-            alert('You won');
+        else if (playerTotal < 21 && playerTotal > dealerTotal) {
+            alert('You won user has a total under 21 and a higher total than the dealer');
         }
         // The user has a total under 21 and a lower total than the dealer
-        else if (dealerTotal <= 21 && userTotal < dealerTotal) {
-            alert('You Lost');
+        else if (dealerTotal <= 21 && playerTotal < dealerTotal) {
+            alert('You Lost user has a total under 21 and a lower total than the dealer');
         }
         // The user did not bust but the dealer did
-        else if (userTotal < 21 && dealerTotal > 21) {
-            alert('You won');
+        else if (playerTotal < 21 && dealerTotal > 21) {
+            alert('You won user did not bust but the dealer did');
         }
     }
 
@@ -148,7 +151,6 @@ const Blackjack = () => {
         <div>
             <h1>Blackjack</h1>
             <h4>Your total: {userTotal}</h4>
-            <h4>User cards: {userCardArr}</h4>
             <h4>Dealer's Hand: {compTotal}</h4>
             <button id='playBlackjack' onClick={play}>Play</button>
             <button id='hitButton' onClick={hit}>Hit</button>
