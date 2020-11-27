@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import Blackjack from './components/Blackjack';
 import CoinFlip from './components/Coinflip';
+import Dice from './components/Dice';
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Route exact path='/' component={Home}></Route>
         <Route path='/Blackjack' component={Blackjack}></Route>
         <Route path='/Coinflip' component={CoinFlip}></Route>
+        <Route path='/Dice' component={Dice}></Route>
       </Switch>
     </Router>
   );
