@@ -1,4 +1,5 @@
-import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Nav from './components/Nav';
 import Home from './components/Home';
 import Blackjack from './components/Blackjack';
 
@@ -6,11 +7,11 @@ import Blackjack from './components/Blackjack';
 const App = () => {
     return (
     <Router>
-        <li><NavLink to='/' exact>Home</NavLink></li>
-        <li><NavLink to='/Blackjack' exact>Blackjack</NavLink></li>
-
-        <Route exact path='/' component={Home}></Route>
-        <Route exact path='/Blackjack' component={Blackjack}></Route>
+        <Nav />
+        <Switch>
+          <Route exact path='/' component={Home}></Route>
+          <Route exact path='/Blackjack' component={Blackjack}></Route>
+        </Switch>
       </Router>
     );
 }
