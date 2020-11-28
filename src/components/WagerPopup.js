@@ -1,6 +1,6 @@
 const WagerPopup = (props) => {
-    const setWager = (amount) => {
-        console.log(amount);
+    const setWager = (event) => {
+        event.preventDefault();
         
     }
 
