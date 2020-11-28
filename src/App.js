@@ -6,6 +6,7 @@ import Blackjack from './components/Blackjack';
 import CoinFlip from './components/Coinflip';
 import Dice from './components/Dice';
 import Crash from './components/Crash';
+import Roulette from './components/Roulette';
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         <Route path='/coinflip' component={CoinFlip}></Route>
         <Route path='/dice' component={Dice}></Route>
         <Route path='/crash' component={Crash}></Route>
+        <Route path='/roulette' component={Roulette}></Route>
       </Switch>
     </Router>
   );
