@@ -9,7 +9,7 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 const Crash = () => {
     const [userBet, setUserBet] = useState(0);
-    const [finalMultiplier, setFinalMultiplier] = useState(0);
+    const [finalMultiplier, setFinalMultiplier] = useState();
 
     // Creates the round's ending multiplication factor 
     const createRandomNumbers = () => {
@@ -45,10 +45,13 @@ const Crash = () => {
         
     }
 
+    // Function that get's the user's bet from the input
     const handleChange = (event) => {
         setUserBet(event.target.value);
     }
 
+    // Takes in the user's bet and the actual multiplier
+    // Then decides if the user won or lost
     const decideGame = (usersPick, randomMultiplier) => {
         randomMultiplier = randomMultiplier.toFixed(2);
         setTimeout(() => {setFinalMultiplier(randomMultiplier)}, 1500);
@@ -60,6 +63,7 @@ const Crash = () => {
         }
     }
 
+    // Function that creates the angular chart
     function createChart(multFactor) {
         // Themes
         am4core.useTheme(am4themes_dataviz);
