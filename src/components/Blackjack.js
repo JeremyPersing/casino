@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import WagerPopup from './WagerPopup';
 
 
 const Blackjack = () => {
@@ -10,7 +9,7 @@ const Blackjack = () => {
 
     const play = () => {
         let playButton = document.getElementById('playBlackjack');
-        playButton.remove();  // Remove the play button
+        playButton.style = 'visibility: hidden'  // Remove the play button
         initialDeal();
     }
 
@@ -67,7 +66,10 @@ const Blackjack = () => {
             dealerTotal((userTotal + card));
         }
         else if (userTotal + card > 21) {
-            setTimeout(() => {alert('You bust')}, 100);
+            setTimeout(() => {
+                alert('You bust');
+                playAgain();
+            }, 100);
         }
     }
 
@@ -146,16 +148,33 @@ const Blackjack = () => {
         else if (playerTotal < 21 && dealerTotal > 21) {
             alert('You won user did not bust but the dealer did');
         }
+        playAgain();
+    }
+
+    const playAgain = () => {
+        let button = document.getElementById('playBlackjack');
+        button.style = 'visibility: visible';
+        setUserTotal(0);  // Set user total to 0 for replays
+        setCompTotal(0);  // Set comp total to 0 for replays
+        setUserCardArr([]); // set users card to empty for replays
     }
 
     return (
         <div>
             <h1>Blackjack</h1>
-            <h4>Your total: {userTotal}</h4>
-            <h4>Dealer's Hand: {compTotal}</h4>
+            <div>
+                <h4>Your total: {userTotal}</h4>
+                <div id='playerCards'></div>
+            </div>
+            <div>
+                <h4>Dealer's Hand: {compTotal}</h4>
+                <div id='dealerCards'></div>
+            </div>
+            
             <button id='playBlackjack' onClick={play}>Play</button>
             <button id='hitButton' onClick={hit}>Hit</button>
             <button id='stand' onClick={stand}>Stand</button>
+    
         </div>
     )
 }

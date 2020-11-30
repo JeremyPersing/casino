@@ -25,7 +25,6 @@ const Crash = () => {
             let result = random1 * random2;
             arr.push(result);
         }
-        console.log(arr)
         let randomNum = Math.floor(Math.random() * 100);
         let selected = arr[randomNum];
 
@@ -122,11 +121,11 @@ const Crash = () => {
         <div>
             <h1>Crash</h1>
             <h2>Final Multiplier {finalMultiplier}</h2>
-            <div id="chartdiv" style={{width: '100%', height: '500px'}}></div>
             <form onSubmit={play}>
                 <input type='number' step='any' min='1.5' required placeholder='Min bet 1.5x' onChange={handleChange}></input>
                 <input type='submit' value='Place'></input>
             </form>
+            <div id="chartdiv" style={{width: '100%', height: '500px'}}></div>
         </div>
     )
 }
