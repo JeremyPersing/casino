@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDice from 'react-dice-complete';
+import 'react-dice-complete/dist/react-dice-complete.css';
+
 const Dice = () => {
     // Function that generates a random number between 1 and 6
     const rollDice = () => {
@@ -34,10 +38,24 @@ const Dice = () => {
         }
     }
 
+    const rollDoneCallBack = (num) => {
+        console.log(`You rolled a ${num}`)
+    }
+
+
+
     return (
         <div>
             <h1>Dice Roll</h1>
-            <button onClick={() => {outcome(1)}}>1</button>
+            <ReactDice
+            numDice={2}
+            rollDone={rollDoneCallBack}
+            defaultRoll={3}
+            outline={true}
+            faceColor={'#BDBCBD'}
+            dotColor={'#333333'}
+            ></ReactDice>
+            <button >1</button>
             <button onClick={() => {outcome(2)}}>2</button>
             <button onClick={() => {outcome(3)}}>3</button>
             <button onClick={() => {outcome(4)}}>4</button>
@@ -47,6 +65,7 @@ const Dice = () => {
             <button onClick={() => {outcomeTwo(4)}}>4 or higher</button>
         </div>
     )
-}
+} 
+
 
 export default Dice;

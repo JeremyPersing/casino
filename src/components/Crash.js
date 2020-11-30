@@ -19,13 +19,13 @@ const Crash = () => {
             
             arr.push(random1);
 
-            let random2 = Math.random() * 5 + 1;
+            let random2 = Math.floor(Math.random() * 5 + 1);
             
 
             let result = random1 * random2;
             arr.push(result);
         }
-
+        console.log(arr)
         let randomNum = Math.floor(Math.random() * 100);
         let selected = arr[randomNum];
 
