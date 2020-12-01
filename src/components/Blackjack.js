@@ -5,7 +5,8 @@ const Blackjack = () => {
     const [userTotal, setUserTotal] = useState(0);  // Used to hold and display user's total
     const [compTotal, setCompTotal] = useState(0);  // Used to hold and display comp's total
     const [userCardArr, setUserCardArr] = useState([]);  // Holds the user's card values
-
+    const suits = ['C', 'D', 'H', 'S']; // Array for the suits of cards
+    const tens = ['10', 'J', 'Q', 'K']; // Array for cards that hold a value of 10
 
     const play = () => {
         let playButton = document.getElementById('playBlackjack');
@@ -23,7 +24,9 @@ const Blackjack = () => {
     const initialDeal = () => {
         // Deal two cards
         let cardOne = randomCard();
+        placePlayerCards('player', cardOne);
         let cardTwo = randomCard();
+        placePlayerCards('player', cardTwo);
 
         // Create a new array and push the cards into them
         let arr = [];
@@ -47,8 +50,9 @@ const Blackjack = () => {
     const hit = () => {
         // Deal another card
         let card = randomCard();
-        console.log(userTotal + card);
+        placePlayerCards('player', card);
 
+        
         // Place the card in the user's card array
         setUserCardArr(arr => [...arr, card]);
             
@@ -59,22 +63,24 @@ const Blackjack = () => {
         // Get the user's new total
         let total = determineTotal(arr);
         setUserTotal(total);
-
         
         // Account for if that new card will equal 21 or be over it
-        if (userTotal + card === 21) {
-            dealerTotal((userTotal + card));
-        }
-        else if (userTotal + card > 21) {
-            setTimeout(() => {
-                alert('You bust');
-                playAgain();
-            }, 100);
-        }
+        setTimeout(() => {
+            if (total === 21) {
+                dealerTotal(total);
+            }
+            else if (total > 21) {
+                setTimeout(() => {
+                    alert('You bust');
+                    playAgain();
+                }, 100);
+            }
+        }, 100)
     }
 
     // Function that ends the game and reveals the dealer's total
     const stand = () => {
+        console.log('In stand: ' + userTotal)
         dealerTotal(userTotal); // Determine the dealer's total
     }
 
@@ -102,7 +108,9 @@ const Blackjack = () => {
         // The dealer must deal themself two cards
         let dCards = [];
         let cardOne = randomCard();
+        placePlayerCards('dealer', cardOne)
         let cardTwo = randomCard();
+        placePlayerCards('dealer', cardTwo);
         dCards.push(cardOne);
         dCards.push(cardTwo);
         let dTotal = determineTotal(dCards);
@@ -112,6 +120,7 @@ const Blackjack = () => {
             // The dealer will hit only if there total is less than 17
             while (dTotal < 17) {
                 let hit = randomCard();
+                placePlayerCards('dealer', hit);
                 dCards.push(hit);
                 dTotal = determineTotal(dCards);
             }
@@ -157,6 +166,41 @@ const Blackjack = () => {
         setUserTotal(0);  // Set user total to 0 for replays
         setCompTotal(0);  // Set comp total to 0 for replays
         setUserCardArr([]); // set users card to empty for replays
+        removeCards(); // Remove the current cards
+    }
+
+    // Places the cards onto the screen
+    // player argument should either be player or dealer
+    const placePlayerCards = (player, num) => {
+
+        // Get the suit of the card
+        let random = Math.floor(Math.random() * 4);
+        console.log(random);
+        let cardSuit = suits[random];
+        console.log(cardSuit);
+
+        // If num is ten it can be 10, J, Q, or K
+        if (num === 10) {
+            num = tens[random];
+        }
+
+        // Place the card in the playing area
+        let cardDiv = document.getElementById(player + 'Cards');
+        cardDiv.innerHTML += `<img src=${process.env.PUBLIC_URL + '/images/Cards/' + num  + cardSuit + '.png'} height='200px' alt=${num}></img>`
+    }
+
+    const removeCards = () => {
+        let playerCardDiv = document.getElementById('playerCards');
+        while (playerCardDiv.childNodes.length > 0) {
+            console.log('childNodes.length: ' + playerCardDiv.childNodes.length);
+            let currChildElement = playerCardDiv.childNodes[playerCardDiv.childNodes.length - 1];
+            playerCardDiv.removeChild(currChildElement);
+        }
+        let dealerCardDiv = document.getElementById('dealerCards');
+        while (dealerCardDiv.childNodes.length > 0) {
+            let currChildElement = dealerCardDiv.childNodes[dealerCardDiv.childNodes.length - 1];
+            dealerCardDiv.removeChild(currChildElement);
+        }
     }
 
     return (
@@ -164,10 +208,12 @@ const Blackjack = () => {
             <h1>Blackjack</h1>
             <div>
                 <h4>Your total: {userTotal}</h4>
+                <h2>Your Hand</h2>
                 <div id='playerCards'></div>
             </div>
             <div>
-                <h4>Dealer's Hand: {compTotal}</h4>
+                <h4>Dealer's Total: {compTotal}</h4>
+                <h2>Dealer's Hand</h2>
                 <div id='dealerCards'></div>
             </div>
             
