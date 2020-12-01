@@ -3,11 +3,12 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_dataviz from '@amcharts/amcharts4/themes/dataviz';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import Wager from './Wager';
 
 // Still need to add graphing capabiliity, coin system, and the input for the amount 
 // of coins. Also need to style the application
 
-const Crash = () => {
+const Crash = (props) => {
     const [userBet, setUserBet] = useState(0);
     const [finalMultiplier, setFinalMultiplier] = useState();
 
@@ -55,10 +56,10 @@ const Crash = () => {
         randomMultiplier = randomMultiplier.toFixed(2);
         setTimeout(() => {setFinalMultiplier(randomMultiplier)}, 1500);
         if (usersPick <= randomMultiplier) {
-            setTimeout(() => {alert('You win ' + usersPick + 'x coins')}, 2000);
+            setTimeout(() => {props.setCoins(props.coins + (props.wager * userBet))}, 2000);
         }
         else {
-            setTimeout(() => {alert('Better Luck next time')}, 2000);
+            setTimeout(() => {}, 2000);
         }
     }
 
@@ -121,6 +122,8 @@ const Crash = () => {
         <div>
             <h1>Crash</h1>
             <h2>Final Multiplier {finalMultiplier}</h2>
+            <Wager coins={props.coins} setCoins={props.setCoins}
+             wager={props.wager} setWager={props.setWager}></Wager>
             <form onSubmit={play}>
                 <input type='number' step='any' min='1.5' required placeholder='Min bet 1.5x' onChange={handleChange}></input>
                 <input type='submit' value='Place'></input>

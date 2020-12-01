@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
+import Wager from './Wager';
 
 
-const Blackjack = () => {
+const Blackjack = (props) => {
     const [userTotal, setUserTotal] = useState(0);  // Used to hold and display user's total
     const [compTotal, setCompTotal] = useState(0);  // Used to hold and display comp's total
     const [userCardArr, setUserCardArr] = useState([]);  // Holds the user's card values
@@ -216,7 +217,8 @@ const Blackjack = () => {
                 <h2>Dealer's Hand</h2>
                 <div id='dealerCards'></div>
             </div>
-            
+            <Wager coins={props.coins} setCoins={props.setCoins}
+             wager={props.wager} setWager={props.setWagers}></Wager>
             <button id='playBlackjack' onClick={play}>Play</button>
             <button id='hitButton' onClick={hit}>Hit</button>
             <button id='stand' onClick={stand}>Stand</button>

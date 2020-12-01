@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import { Wheel } from 'react-custom-roulette';
+import Wager from './Wager';
 
-const Roulette = () => {
+const Roulette = (props) => {
     const [betState, setBetState] = useState();
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
@@ -110,6 +111,8 @@ const Roulette = () => {
             }}
             ></Wheel>
             <p>Your Color: {betState}</p>
+            <Wager coins={props.coins} setCoins={props.setCoins}
+             wager={props.wager} setWager={props.setWagers}></Wager>
             <button value='Red' onClick={handleSpinClick}>Red (x2)</button>
             <button value='Black' onClick={handleSpinClick}>Black (x2)</button>
             <button value='Green' onClick={handleSpinClick}>Green (x13)</button>

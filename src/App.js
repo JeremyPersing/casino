@@ -10,18 +10,30 @@ import Roulette from './components/Roulette';
 
 
 const App = () => {
-  const [money, setMoney] = useState(100);
+  const [coins, setCoins] = useState(500);
+  const [wager, setWager] = useState(0);
 
   return (
   <Router>
-      <Nav />
+      <Nav coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>
       <Switch>
-        <Route exact path='/' component={Home}></Route>
-        <Route path='/blackjack' component={Blackjack}></Route>
-        <Route path='/coinflip' component={CoinFlip}></Route>
-        <Route path='/dice' component={Dice}></Route>
-        <Route path='/crash' component={Crash}></Route>
-        <Route path='/roulette' component={Roulette}></Route>
+        <Route exact path='/' render={props => (<Home {...props} 
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+
+        <Route path='/blackjack' render={props => (<Blackjack {...props} 
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+
+        <Route path='/coinflip' render={props => (<CoinFlip {...props} 
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+
+        <Route path='/dice' render={props => (<Dice {...props} 
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+
+        <Route path='/crash' render={props => (<Crash {...props} 
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+
+        <Route path='/roulette' render={props => (<Roulette {...props} 
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
       </Switch>
     </Router>
   );
