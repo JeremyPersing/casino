@@ -15,7 +15,7 @@ const App = () => {
 
   return (
   <Router>
-      <Nav coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>
+      <Nav coins={coins}/>
       <Switch>
         <Route exact path='/' render={props => (<Home {...props} 
         coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>

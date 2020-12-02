@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactDice from 'react-dice-complete';
 import 'react-dice-complete/dist/react-dice-complete.css';
-import Wager from './Wager';
 
 class Dice extends Component {
     constructor(props) {
@@ -80,8 +79,6 @@ class Dice extends Component {
               disableIndividual={true}
               rollTime={1}
             />
-            <Wager coins={this.props.coins} setCoins={this.props.setCoins}
-             wager={this.props.wager} setWager={this.props.setWagers}></Wager>
             <button onClick={() => {this.compareSingle(1)}}>1</button>
             <button onClick={() => {this.compareSingle(2)}}>2</button>
             <button onClick={() => {this.compareSingle(3)}}>3</button>

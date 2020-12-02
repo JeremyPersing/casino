@@ -3,14 +3,13 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_dataviz from '@amcharts/amcharts4/themes/dataviz';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import Wager from './Wager';
 
 // Still need to add graphing capabiliity, coin system, and the input for the amount 
 // of coins. Also need to style the application
 
 const Crash = (props) => {
+    const [rMultiplier, setRMultipler] = useState();
     const [userBet, setUserBet] = useState(0);
-    const [finalMultiplier, setFinalMultiplier] = useState();
 
     // Creates the round's ending multiplication factor 
     const createRandomNumbers = () => {
@@ -36,30 +35,45 @@ const Crash = (props) => {
     const play = (event) => {
         // Doesn't reload page
         event.preventDefault();
-        // Gets a random number
-        let random = createRandomNumbers();
-        console.log('Multiplier: ' + random);
-        // Load the chart
-        createChart(random);
-        decideGame(userBet, random); 
         
+        // Deduct the amount of coins wagered from the total amount of coins
+        let currCoins = props.coins - props.wager;
+        
+        // Only all the user to play if they have enough coins
+        if (currCoins >= 0) {
+            props.setCoins(currCoins);
+            // Gets a random number
+            let random = createRandomNumbers();
+            // Load the chart
+            createChart(random);
+            decideGame(userBet, random); 
+        }
+        else {
+            alert('You cannot bet that many coins');
+        }
     }
 
     // Function that get's the user's bet from the input
-    const handleChange = (event) => {
+    const handleMultiplierChange = (event) => {
         setUserBet(event.target.value);
+    }
+
+    const handleWagerChange = (event) => {
+        props.setWager(event.target.value);
     }
 
     // Takes in the user's bet and the actual multiplier
     // Then decides if the user won or lost
     const decideGame = (usersPick, randomMultiplier) => {
         randomMultiplier = randomMultiplier.toFixed(2);
-        setTimeout(() => {setFinalMultiplier(randomMultiplier)}, 1500);
+        // Sanitize the inputs
+        randomMultiplier = Number(randomMultiplier);
+        usersPick = Number(usersPick);
+        
+        setRMultipler(randomMultiplier);
         if (usersPick <= randomMultiplier) {
-            setTimeout(() => {props.setCoins(props.coins + (props.wager * userBet))}, 2000);
-        }
-        else {
-            setTimeout(() => {}, 2000);
+            let result = (props.coins - props.wager) + (props.wager * userBet);
+            setTimeout(() => {props.setCoins(result)}, 2000);
         }
     }
 
@@ -112,7 +126,6 @@ const Crash = (props) => {
 
         console.log('Mult factor in create chart ' + multFactor);
         function randomValue() {
-            console.log('Random num ' + multFactor);
             hand.showValue(multFactor, 1000, am4core.ease.cubicOut);
         }
     }
@@ -121,13 +134,18 @@ const Crash = (props) => {
     return (
         <div>
             <h1>Crash</h1>
-            <h2>Final Multiplier {finalMultiplier}</h2>
-            <Wager coins={props.coins} setCoins={props.setCoins}
-             wager={props.wager} setWager={props.setWager}></Wager>
             <form onSubmit={play}>
-                <input type='number' step='any' min='1.5' required placeholder='Min bet 1.5x' onChange={handleChange}></input>
+                <div>
+                    <label>Bet</label>
+                    <input type='number' step='.01' min={.01} required max={props.coins} onChange={handleWagerChange} id='wager'></input>
+                </div>
+                <div>
+                    <label>Multiplier (2.5x Minimum)</label>
+                    <input type='number' step='.1' min='2.5' required max={15} onChange={handleMultiplierChange}></input>
+                </div>
                 <input type='submit' value='Place'></input>
             </form>
+            <h2>Multiplier: {rMultiplier}</h2>
             <div id="chartdiv" style={{width: '100%', height: '500px'}}></div>
         </div>
     )

@@ -9,7 +9,7 @@ const Nav = (props) => {
             <li><NavLink to='/dice' exact>Dice Roll</NavLink></li>
             <li><NavLink to='/crash' exact>Crash</NavLink></li>
             <li><NavLink to='/roulette' exact>Roulette</NavLink></li>
-            <p><img src={process.env.PUBLIC_URL + '/images/bitcoinlogo.png'} alt='Coins Logo' style={{height: '25px'}}></img>{props.coins}</p>
+            <p><img src={process.env.PUBLIC_URL + '/images/bitcoinlogo.png'} alt='Coins Logo' style={{height: '25px'}}></img>{parseFloat(props.coins).toFixed(2)}</p>
         </div>
     )
 }

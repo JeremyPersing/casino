@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import Wager from './Wager';
 
 
 const Blackjack = (props) => {
@@ -217,8 +216,7 @@ const Blackjack = (props) => {
                 <h2>Dealer's Hand</h2>
                 <div id='dealerCards'></div>
             </div>
-            <Wager coins={props.coins} setCoins={props.setCoins}
-             wager={props.wager} setWager={props.setWagers}></Wager>
+            
             <button id='playBlackjack' onClick={play}>Play</button>
             <button id='hitButton' onClick={hit}>Hit</button>
             <button id='stand' onClick={stand}>Stand</button>
