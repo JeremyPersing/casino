@@ -8,9 +8,27 @@ const Blackjack = (props) => {
     const suits = ['C', 'D', 'H', 'S']; // Array for the suits of cards
     const tens = ['10', 'J', 'Q', 'K']; // Array for cards that hold a value of 10
 
-    const play = () => {
+    const play = (event) => {
+        // Doesn't reload page
+        event.preventDefault();
+        document.getElementById('playBlackjack').style = 'visibility: visible';
+        document.getElementById('betButton').style = 'visibility: hidden';
+        
+        // Deduct the amount of coins wagered from the total amount of coins
+        let currCoins = props.coins - props.wager;
+        props.setCoins(currCoins);
+    }
+
+    const handleWagerChange = (event) => {
+        props.setWager(event.target.value);
+    }
+
+    const playBlackJack = () => {
         let playButton = document.getElementById('playBlackjack');
-        playButton.style = 'visibility: hidden'  // Remove the play button
+        // Remove the play button
+        playButton.style = 'visibility: hidden'  
+        // Display the Hit and Stand Buttons
+        document.getElementById('hitAndStand').style = 'visibility: visible';
         initialDeal();
     }
 
@@ -71,8 +89,7 @@ const Blackjack = (props) => {
             }
             else if (total > 21) {
                 setTimeout(() => {
-                    alert('You bust');
-                    playAgain();
+                    setTimeout(() => {playAgain()}, 1000);
                 }, 100);
             }
         }, 100)
@@ -80,7 +97,6 @@ const Blackjack = (props) => {
 
     // Function that ends the game and reveals the dealer's total
     const stand = () => {
-        console.log('In stand: ' + userTotal)
         dealerTotal(userTotal); // Determine the dealer's total
     }
 
@@ -131,38 +147,30 @@ const Blackjack = (props) => {
     }
 
     const compareTotals = (playerTotal, dealerTotal) => {
-        console.log('User Total: ' + playerTotal);
-        console.log('Comp Total: ' + dealerTotal);
         // The user has 21 and the dealer does not
         if (playerTotal === 21 && dealerTotal !== 21) {
-            alert('You won user has 21 and the dealer does not');
+            props.setCoins(props.coins + (props.wager * 2.5));
         }
         // Both the user and dealer have the same total
         else if (playerTotal === dealerTotal) {
-            alert('Tie');
-        }
-        // The user busted
-        else if (playerTotal > 21) {
-            alert('You lost user busted');
+            // Need to multiply by 1 otherwise js will read wager as a string and concatenate both
+            props.setCoins(props.coins + (props.wager * 1));
         }
         // The user has a total under 21 and a higher total than the dealer
         else if (playerTotal < 21 && playerTotal > dealerTotal) {
-            alert('You won user has a total under 21 and a higher total than the dealer');
-        }
-        // The user has a total under 21 and a lower total than the dealer
-        else if (dealerTotal <= 21 && playerTotal < dealerTotal) {
-            alert('You Lost user has a total under 21 and a lower total than the dealer');
+            props.setCoins(props.coins + (props.wager * 2));
         }
         // The user did not bust but the dealer did
         else if (playerTotal < 21 && dealerTotal > 21) {
-            alert('You won user did not bust but the dealer did');
+            props.setCoins(props.coins + (props.wager * 2));
         }
-        playAgain();
+        setTimeout(() => {playAgain()}, 2000);
     }
 
     const playAgain = () => {
-        let button = document.getElementById('playBlackjack');
-        button.style = 'visibility: visible';
+        document.getElementById('betButton').style = 'visibility: visible';
+        document.getElementById('buttonsDiv').style = 'visibility: hidden';
+        document.getElementById('hitAndStand').style = 'visibility: hidden';
         setUserTotal(0);  // Set user total to 0 for replays
         setCompTotal(0);  // Set comp total to 0 for replays
         setUserCardArr([]); // set users card to empty for replays
@@ -175,9 +183,7 @@ const Blackjack = (props) => {
 
         // Get the suit of the card
         let random = Math.floor(Math.random() * 4);
-        console.log(random);
         let cardSuit = suits[random];
-        console.log(cardSuit);
 
         // If num is ten it can be 10, J, Q, or K
         if (num === 10) {
@@ -192,7 +198,6 @@ const Blackjack = (props) => {
     const removeCards = () => {
         let playerCardDiv = document.getElementById('playerCards');
         while (playerCardDiv.childNodes.length > 0) {
-            console.log('childNodes.length: ' + playerCardDiv.childNodes.length);
             let currChildElement = playerCardDiv.childNodes[playerCardDiv.childNodes.length - 1];
             playerCardDiv.removeChild(currChildElement);
         }
@@ -203,9 +208,24 @@ const Blackjack = (props) => {
         }
     }
 
+
     return (
         <div>
             <h1>Blackjack</h1>
+            <form onSubmit={play}>
+                <div>
+                    <label>Bet</label>
+                    <input type='number'step='.01' min={.01} max={props.coins} required onChange={handleWagerChange} id='wager'></input>
+                </div>
+                <input id='betButton' type='submit' value='Place Bet'></input>
+            </form>
+            <div id='buttonsDiv' style={{visibility: 'hidden'}}>
+                <button id='playBlackjack' onClick={playBlackJack}>Play</button>
+                <div id='hitAndStand' style={{visibility: 'hidden'}}>
+                    <button id='hitButton' onClick={hit}>Hit</button>
+                    <button id='stand' onClick={stand}>Stand</button>
+                </div>
+            </div>
             <div>
                 <h4>Your total: {userTotal}</h4>
                 <h2>Your Hand</h2>
@@ -216,10 +236,6 @@ const Blackjack = (props) => {
                 <h2>Dealer's Hand</h2>
                 <div id='dealerCards'></div>
             </div>
-            
-            <button id='playBlackjack' onClick={play}>Play</button>
-            <button id='hitButton' onClick={hit}>Hit</button>
-            <button id='stand' onClick={stand}>Stand</button>
     
         </div>
     )

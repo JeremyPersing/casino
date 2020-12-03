@@ -13,6 +13,22 @@ class Dice extends Component {
         this.compareSingle = this.compareSingle.bind(this);
         this.rollDoneCallback = this.rollDoneCallback.bind(this);
         this.compareBroad = this.compareBroad.bind(this);
+        this.handleWagerChange = this.handleWagerChange.bind(this);
+        this.play = this.play.bind(this);
+    }
+
+    handleWagerChange(event) {
+        this.props.setWager(event.target.value);
+    }
+
+    play(event) {
+        event.preventDefault();
+        // Make play buttons visible and make bet button invisible
+        document.getElementById('buttonsDiv').style = 'visibility: visible';
+        document.getElementById('betButton').style = 'visibility: hidden';
+        // Deduct current bet from current amount of coins
+        let currCoins = this.props.coins - this.props.wager;
+        this.props.setCoins(currCoins);
     }
 
     // Rolls the dice
@@ -27,6 +43,9 @@ class Dice extends Component {
 
     // Compares when the player made a bet on a single number
     compareSingle(num) {
+        // Make play buttons invisible and make bet button visible
+        document.getElementById('buttonsDiv').style = 'visibility: hidden';
+        document.getElementById('betButton').style = 'visibility: visible';
         this.rollAll();
         // Set the timeout to allow for the rolledNum state to be set
         setTimeout(() => {this.determineOutcome1(this.state.rolledNum, num)}, 1000);
@@ -34,18 +53,17 @@ class Dice extends Component {
 
     // Determines the outcome on a single number bet
     determineOutcome1(rolledNum, guessedNum) {
-        console.log('Guessed: ' + guessedNum);
-        console.log('Rolled: ' + rolledNum);
         if (rolledNum === guessedNum) {
-            console.log('You Win, x6 profit')
-        }
-        else {
-            console.log('You lose');
+            this.props.setCoins(this.props.coins + (this.props.wager * 6))
         }
     }
 
     // Compares when the player made a 50/50 bet 
     compareBroad(num) {
+        // Make play buttons invisible and make bet button visible
+        document.getElementById('buttonsDiv').style = 'visibility: hidden';
+        document.getElementById('betButton').style = 'visibility: visible';
+
         this.rollAll();
         // Set the timeout to allow for the rolledNum state to be set
         setTimeout(() => {this.determineOutcome2(this.state.rolledNum, num)}, 1000);
@@ -53,13 +71,8 @@ class Dice extends Component {
 
     // Determines the outcome on a 50/50 bet
     determineOutcome2(rolledNum, guessedNum) {
-        console.log("Rolled: " + rolledNum);
-        console.log('Guessed: ' + guessedNum);
         if ((rolledNum <= 3 && guessedNum === 3) || (rolledNum >= 4 && guessedNum === 4)) {
-            console.log('You win 2x')
-        }
-        else {
-            console.log("You lose");
+            this.props.setCoins(this.props.coins + (this.props.wager * 2))
         }
         
     }
@@ -79,14 +92,21 @@ class Dice extends Component {
               disableIndividual={true}
               rollTime={1}
             />
-            <button onClick={() => {this.compareSingle(1)}}>1</button>
-            <button onClick={() => {this.compareSingle(2)}}>2</button>
-            <button onClick={() => {this.compareSingle(3)}}>3</button>
-            <button onClick={() => {this.compareSingle(4)}}>4</button>
-            <button onClick={() => {this.compareSingle(5)}}>5</button>
-            <button onClick={() => {this.compareSingle(6)}}>6</button>
-            <button onClick={() => {this.compareBroad(3)}}>3 or lower</button>
-            <button onClick={() => {this.compareBroad(4)}}>4 or higher</button>
+            <form onSubmit={this.play}>
+                <label>Bet</label>
+                <input type='number' step='.01' min='.01' max={this.props.coins} onChange={this.handleWagerChange}></input>
+                <input id='betButton' type='submit' value='Place Bet'></input>
+            </form>
+            <div id='buttonsDiv' style={{visibility:'hidden'}}>
+                <button onClick={() => {this.compareSingle(1)}}>1</button>
+                <button onClick={() => {this.compareSingle(2)}}>2</button>
+                <button onClick={() => {this.compareSingle(3)}}>3</button>
+                <button onClick={() => {this.compareSingle(4)}}>4</button>
+                <button onClick={() => {this.compareSingle(5)}}>5</button>
+                <button onClick={() => {this.compareSingle(6)}}>6</button>
+                <button onClick={() => {this.compareBroad(3)}}>3 or lower</button>
+                <button onClick={() => {this.compareBroad(4)}}>4 or higher</button>
+            </div>
           </div>
         )
       }

@@ -10,11 +10,7 @@ const Coinflip = (props) => {
             let result = props.wager * 2;
             
             let endResult = props.coins + result;
-            console.log(endResult)
             props.setCoins(endResult);
-        }
-        else {
-            console.log('Better luck next time')
         }
     }
 
@@ -24,7 +20,6 @@ const Coinflip = (props) => {
         let doc = document.getElementById('outcome');
         // Generate a random number between 0 and 1
         let random = Math.floor(Math.random() * 2);
-        console.log(random)
         // If the random number is 0 display heads
         if (random === 0) {
             doc.innerHTML = `<img src=${process.env.PUBLIC_URL + '/images/Coins/heads.png'} class='animate-coin' height='200px' alt='heads'></img>`;
@@ -43,17 +38,11 @@ const Coinflip = (props) => {
         
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
-        
-        // Only all the user to play if they have enough coins
-        if (currCoins >= 0) {
-            document.getElementById('betButton').style = 'visibility: hidden';
-            props.setCoins(currCoins);
-            // Change the buttons to visible
-            document.getElementById('buttonsDiv').style = 'visibility: visible';
-        }
-        else {
-            alert('You need some more coins')
-        }
+           
+        document.getElementById('betButton').style = 'visibility: hidden';
+        props.setCoins(currCoins);
+        // Change the buttons to visible
+        document.getElementById('buttonsDiv').style = 'visibility: visible';
     }
 
     const handleWagerChange = (event) => {

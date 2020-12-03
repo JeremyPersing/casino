@@ -7,6 +7,20 @@ const Roulette = (props) => {
     const [prizeNumber, setPrizeNumber] = useState(0);
 
 
+    const play = (event) => {
+        // Doesn't reload page
+        event.preventDefault();
+        document.getElementById('buttonsDiv').style = 'visibility: visible';
+        document.getElementById('betButton').style = 'visibility: hidden';
+        // Deduct the amount of coins wagered from the total amount of coins
+        let currCoins = props.coins - props.wager;
+        props.setCoins(currCoins);
+    }
+    
+    const handleWagerChange = (event) => {
+        props.setWager(event.target.value);
+    }
+    
     const data = [
         { option: '0', style: { backgroundColor: 'Green', textColor: 'white'}},
         { option: '32', style: { backgroundColor: 'Red', textColor: 'white'}},
@@ -57,16 +71,13 @@ const Roulette = (props) => {
         
         if (userPick === winningColor) {
             // Green multiplier = x13
-            if (winningColor === 'Green') {
-                console.log('You won 13x');
+            if (winningColor === 'GREEN') {
+                setTimeout(() => {props.setCoins(props.coins + (props.wager * 13))}, 11250);
             }
             // Red and black multiplier = x2
             else {
-                console.log('You won 2x')
+                setTimeout(() => {props.setCoins(props.coins + (props.wager * 2))}, 11250);
             }
-        }
-        else {
-            console.log('lost');
         }
     }
 
@@ -75,9 +86,10 @@ const Roulette = (props) => {
     const handleSpinClick = (event) => {
         // Only allow a spin if the wheel is not currently spinning
         if (mustSpin === false) {
+            document.getElementById('buttonsDiv').style = 'visibility: hidden';
+            document.getElementById('betButton').style = 'visibility: visible';
             // Assign the user's color pick to bet state 
             let userPick = event.target.value;
-            console.log('Users Pick: ' + userPick);
             setBetState(userPick);
 
             // Generate a random number between 0 and 36
@@ -87,16 +99,12 @@ const Roulette = (props) => {
             // Set the new prize color
             let color = data[newPrizeNumber].style.backgroundColor;
             
-            console.log('Winning color: ' + color);
             // Determine the outcome of the spin
             determineOutcome(color, userPick);
             
             setMustSpin(true);
         }
     }
-
-
-    
 
     return(
         <div>
@@ -109,10 +117,19 @@ const Roulette = (props) => {
                 setMustSpin(false);
             }}
             ></Wheel>
-            <p>Your Color: {betState}</p>
-            <button value='Red' onClick={handleSpinClick}>Red (x2)</button>
-            <button value='Black' onClick={handleSpinClick}>Black (x2)</button>
-            <button value='Green' onClick={handleSpinClick}>Green (x13)</button>
+             <form onSubmit={play}>
+                <div>
+                    <label>Bet</label>
+                    <input type='number'step='.01' min={.01} max={props.coins} required onChange={handleWagerChange} id='wager'></input>
+                </div>
+                <input id='betButton' type='submit' value='Place Bet'></input>
+            </form>
+            <div id='buttonsDiv' style={{visibility: 'hidden'}}>
+                <p>Your Color: {betState}</p>
+                <button value='Red' onClick={handleSpinClick}>Red (x2)</button>
+                <button value='Black' onClick={handleSpinClick}>Black (x2)</button>
+                <button value='Green' onClick={handleSpinClick}>Green (x13)</button>
+            </div>
         </div>
     )
 }

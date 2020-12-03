@@ -39,18 +39,15 @@ const Crash = (props) => {
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
         
-        // Only all the user to play if they have enough coins
-        if (currCoins >= 0) {
-            props.setCoins(currCoins);
-            // Gets a random number
-            let random = createRandomNumbers();
-            // Load the chart
-            createChart(random);
-            decideGame(userBet, random); 
-        }
-        else {
-            alert('You cannot bet that many coins');
-        }
+        
+        props.setCoins(currCoins);
+        // Gets a random number
+        let random = createRandomNumbers();
+        // Load the chart
+        createChart(random);
+        decideGame(userBet, random); 
+        
+    
     }
 
     // Function that get's the user's bet from the input
@@ -70,7 +67,7 @@ const Crash = (props) => {
         randomMultiplier = Number(randomMultiplier);
         usersPick = Number(usersPick);
         
-        setRMultipler(randomMultiplier);
+        setRMultipler(parseFloat(randomMultiplier).toFixed(2));
         if (usersPick <= randomMultiplier) {
             let result = (props.coins - props.wager) + (props.wager * userBet);
             setTimeout(() => {props.setCoins(result)}, 2000);
@@ -124,7 +121,6 @@ const Crash = (props) => {
 
         chart.setTimeout(randomValue, 800)
 
-        console.log('Mult factor in create chart ' + multFactor);
         function randomValue() {
             hand.showValue(multFactor, 1000, am4core.ease.cubicOut);
         }
