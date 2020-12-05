@@ -39,7 +39,6 @@ class Dice extends Component {
     // Sets the rolled number once the dice is done spinning
     rollDoneCallback(num) {
         this.setState({rolledNum: num});
-        console.log(num)
     }
 
     // Compares when the player made a bet on a single number
@@ -92,22 +91,27 @@ class Dice extends Component {
     // Determines the outcome for a 4x bet
     determineOutcome3(rolledNum, guessedNum) {
         if (rolledNum <= 3 && guessedNum === 3) {
+            console.log('between 1 and 3');
             this.props.setCoins(this.props.coins + (this.props.wager * 4));
         }
-        else if ((rolledNum >= 4 || rolledNum <= 6) && guessedNum === 6) {
+        else if ((rolledNum >= 4 && rolledNum <= 6) && guessedNum === 6) {
+            console.log('between 4 and 6');
             this.props.setCoins(this.props.coins + (this.props.wager * 4));
         }
-        else if ((rolledNum >= 7 || rolledNum <= 9) && guessedNum === 9) {
+        else if ((rolledNum >= 7 && rolledNum <= 9) && guessedNum === 9) {
+            console.log('between 7 and 9');
             this.props.setCoins(this.props.coins + (this.props.wager * 4));
         }
         else if (rolledNum >= 10 && guessedNum === 10) {
+            console.log('between 10 and 12');
             this.props.setCoins(this.props.coins + (this.props.wager * 4));
         }
     }
 
     render() {
-        return (
+        return (  
           <div>
+            <h1>Dice Roll</h1>
             <ReactDice
               numDice={2}
               defaultRoll={3}
@@ -115,36 +119,57 @@ class Dice extends Component {
               faceColor={'#BDBCBD'}
               dotColor={'#333333'}
               dieSize={120}
+              margin={40}
               rollDone={this.rollDoneCallback}
               ref={dice => this.reactDice = dice}
               disableIndividual={true}
               rollTime={1}
             />
-            <form onSubmit={this.play}>
-                <label>Bet</label>
-                <input type='number' step='.01' min='.01' max={this.props.coins} onChange={this.handleWagerChange}></input>
-                <input id='betButton' type='submit' value='Place Bet'></input>
+            <form className='form-group' onSubmit={this.play}>
+                <div className='col-md-4 mx-auto'>
+                    <label className='font-weight-bold' htmlFor='bet'>Bet</label>
+                    <input className='form-control' name='bet' type='number' step='.01' min='.01' max={this.props.coins} onChange={this.handleWagerChange}></input>
+                </div>
+                <input className='btn btn-dark pl-3 pr-3 mt-2' id='betButton' type='submit' value='Place Bet'></input>
             </form>
-            <div id='buttonsDiv' style={{visibility:'hidden'}}>
-                <button onClick={() => {this.compareSingle(1)}}>1</button>
-                <button onClick={() => {this.compareSingle(2)}}>2</button>
-                <button onClick={() => {this.compareSingle(3)}}>3</button>
-                <button onClick={() => {this.compareSingle(4)}}>4</button>
-                <button onClick={() => {this.compareSingle(5)}}>5</button>
-                <button onClick={() => {this.compareSingle(6)}}>6</button>
-                <button onClick={() => {this.compareSingle(7)}}>7</button>
-                <button onClick={() => {this.compareSingle(8)}}>8</button>
-                <button onClick={() => {this.compareSingle(9)}}>9</button>
-                <button onClick={() => {this.compareSingle(10)}}>10</button>
-                <button onClick={() => {this.compareSingle(11)}}>11</button>
-                <button onClick={() => {this.compareSingle(12)}}>12</button>
-                <button onClick ={() => {this.compareFourTimes(3)}}>1 - 3</button>
-                <button onClick ={() => {this.compareFourTimes(6)}}> 4 - 6</button>
-                <button onClick ={() => {this.compareFourTimes(9)}}>7 - 9</button>
-                <button onClick ={() => {this.compareFourTimes(10)}}>10 - 12</button>
-                <button onClick={() => {this.compareTwoTimes(6)}}>6 or lower</button>
-                <button onClick={() => {this.compareTwoTimes(7)}}>7 or higher</button>
-
+            <div className='container' id='buttonsDiv' style={{visibility:'hidden'}}>
+                <div className='pt-2 pb-3 mb-2'>
+                    <p className='font-weight-bold'>12x Multiplier</p>
+                    <div className='row mb-1'>
+                        <button className='col-2 offset-2 btn btn-dark' onClick={() => {this.compareSingle(1)}}>1</button>
+                        <button className='col-2 btn btn-dark ml-1 mr-1' onClick={() => {this.compareSingle(2)}}>2</button>
+                        <button className='col-2 btn btn-dark mr-1' onClick={() => {this.compareSingle(3)}}>3</button>
+                        <button className='col-2 btn btn-dark' onClick={() => {this.compareSingle(4)}}>4</button>
+                    </div>
+                    <div className='row mb-1'>
+                        <button className='col-2 offset-2 btn btn-dark' onClick={() => {this.compareSingle(5)}}>5</button>
+                        <button className='col-2 btn btn-dark ml-1 mr-1' onClick={() => {this.compareSingle(6)}}>6</button>
+                        <button className='col-2 btn btn-dark mr-1' onClick={() => {this.compareSingle(7)}}>7</button>
+                        <button className='col-2 btn btn-dark' onClick={() => {this.compareSingle(8)}}>8</button>
+                    </div>
+                    <div className='row'>
+                        <button className='col-2 offset-2 btn btn-dark' onClick={() => {this.compareSingle(9)}}>9</button>
+                        <button className='col-2 btn btn-dark ml-1 mr-1' onClick={() => {this.compareSingle(10)}}>10</button>
+                        <button className='col-2 btn btn-dark mr-1' onClick={() => {this.compareSingle(11)}}>11</button>
+                        <button className='col-2 btn btn-dark' onClick={() => {this.compareSingle(12)}}>12</button>
+                    </div>
+                </div>
+                <div className='pt-2 pb-3 mb-2'>
+                    <p className='font-weight-bold'>4x Multiplier</p>
+                    <div className='row'>
+                        <button className='col-2 offset-2 btn btn-dark' onClick ={() => {this.compareFourTimes(3)}}>1 - 3</button>
+                        <button className='col-2 btn btn-dark ml-1 mr-1' onClick ={() => {this.compareFourTimes(6)}}> 4 - 6</button>
+                        <button className='col-2 btn btn-dark mr-1' onClick ={() => {this.compareFourTimes(9)}}>7 - 9</button>
+                        <button className='col-2 btn btn-dark' onClick ={() => {this.compareFourTimes(10)}}>10 - 12</button>
+                    </div>
+                </div>
+                <div className='pt-2 pb-3'>
+                    <p className='font-weight-bold'>2x Multiplier</p>
+                    <div className='row'>
+                        <button className='col-4 offset-2 btn btn-dark' onClick={() => {this.compareTwoTimes(6)}}>6 or lower</button>
+                        <button className='col-4 btn btn-dark ml-2' onClick={() => {this.compareTwoTimes(7)}}>7 or higher</button>
+                    </div>
+                </div>
             </div>
           </div>
         )

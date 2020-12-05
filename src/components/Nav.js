@@ -2,27 +2,27 @@ import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
     return (
-        <div class='d-flex justify-content-center mb-4'> 
-            <ul class='nav nav-tabs'>
-                <li class='nav-item'>
-                    <Link class='nav-link' to='/' exact>Home</Link>
+        <div className='d-flex justify-content-center mb-4'> 
+            <ul className='nav nav-tabs'>
+                <li className='nav-item'>
+                    <Link className='nav-link' to='/'>Home</Link>
                 </li>
-                <li class='nav-item'>
-                    <Link class='nav-link' to='/blackjack' exact>Blackjack</Link>
+                <li className='nav-item'>
+                    <Link className='nav-link' to='/blackjack'>Blackjack</Link>
                 </li>
-                <li class='nav-item'>
-                    <Link class='nav-link' to='/coinflip' exact>Coin Flip</Link>
+                <li className='nav-item'>
+                    <Link className='nav-link' to='/coinflip'>Coin Flip</Link>
                 </li>
-                <li class='nav-item'>
-                    <Link class='nav-link' to='/dice' exact>Dice Roll</Link>
+                <li className='nav-item'>
+                    <Link className='nav-link' to='/dice'>Dice Roll</Link>
                 </li>
-                <li class='nav-item'>
-                    <Link class='nav-link' to='/crash' exact>Crash</Link>
+                <li className='nav-item'>
+                    <Link className='nav-link' to='/crash'>Crash</Link>
                 </li>
-                <li class='nav-item'>
-                    <Link class='nav-link' to='/roulette' exact>Roulette</Link>
+                <li className='nav-item'>
+                    <Link className='nav-link' to='/roulette'>Roulette</Link>
                 </li>
-                <li class='mr-auto mt-2'>
+                <li className='mr-auto mt-2'>
                 <img src={process.env.PUBLIC_URL + '/images/bitcoinlogo.png'} alt='Coins Logo' style={{height: '25px'}}></img>
                 {parseFloat(props.coins).toFixed(2)}
                 </li>
