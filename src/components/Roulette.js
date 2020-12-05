@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { Wheel } from 'react-custom-roulette';
 
 const Roulette = (props) => {
-    const [betState, setBetState] = useState();
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
 
@@ -11,7 +10,7 @@ const Roulette = (props) => {
         // Doesn't reload page
         event.preventDefault();
         document.getElementById('buttonsDiv').style = 'visibility: visible';
-        document.getElementById('betButton').style = 'visibility: hidden';
+        document.getElementById('betForm').style = 'visibility: hidden';
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
         props.setCoins(currCoins);
@@ -87,10 +86,9 @@ const Roulette = (props) => {
         // Only allow a spin if the wheel is not currently spinning
         if (mustSpin === false) {
             document.getElementById('buttonsDiv').style = 'visibility: hidden';
-            document.getElementById('betButton').style = 'visibility: visible';
+            document.getElementById('betForm').style = 'visibility: visible';
             // Assign the user's color pick to bet state 
             let userPick = event.target.value;
-            setBetState(userPick);
 
             // Generate a random number between 0 and 36
             const newPrizeNumber = Math.floor(Math.random() * data.length);
@@ -109,26 +107,30 @@ const Roulette = (props) => {
     return(
         <div>
             <h1>Roulette</h1>
-            <Wheel
-            mustStartSpinning={mustSpin}
-            prizeNumber={prizeNumber}
-            data={data}
-            onStopSpinning={() => {
-                setMustSpin(false);
-            }}
-            ></Wheel>
-             <form onSubmit={play}>
-                <div>
-                    <label>Bet</label>
-                    <input type='number'step='.01' min={.01} max={props.coins} required onChange={handleWagerChange} id='wager'></input>
-                </div>
-                <input id='betButton' type='submit' value='Place Bet'></input>
+            <div className='mt-4 mb-2'>
+                <Wheel
+                class='mx-auto'
+                mustStartSpinning={mustSpin}
+                prizeNumber={prizeNumber}
+                data={data}
+                onStopSpinning={() => {
+                    setMustSpin(false);
+                }}
+                ></Wheel>
+            </div>
+             <form className='form-group' onSubmit={play}>
+                 <div id='betForm'>
+                    <div className='col-md-4 mx-auto'>
+                        <label className='font-weight-bold' htmlFor='bet'>Bet</label>
+                        <input className='form-control' name='bet' type='number'step='.01' min={.01} max={props.coins} required onChange={handleWagerChange} id='wager'></input>
+                    </div>
+                    <input className='btn btn-dark pl-3 pr-3 mt-2' type='submit' value='Place Bet'></input>
+                 </div>
             </form>
             <div id='buttonsDiv' style={{visibility: 'hidden'}}>
-                <p>Your Color: {betState}</p>
-                <button value='Red' onClick={handleSpinClick}>Red (x2)</button>
-                <button value='Black' onClick={handleSpinClick}>Black (x2)</button>
-                <button value='Green' onClick={handleSpinClick}>Green (x13)</button>
+                <button value='Red' className='btn btn-danger ml-2 mr-2' onClick={handleSpinClick}>Red (x2)</button>
+                <button value='Black' className='btn btn-dark  mr-2' onClick={handleSpinClick}>Black (x2)</button>
+                <button value='Green' className='btn btn-success' onClick={handleSpinClick}>Green (x13)</button>
             </div>
         </div>
     )

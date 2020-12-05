@@ -16,7 +16,7 @@ const Coinflip = (props) => {
 
     const coinToss = (num) => {
         document.getElementById('buttonsDiv').style = 'visibility: hidden';
-        document.getElementById('betButton').style = 'visibility: visible';
+        document.getElementById('betForm').style = 'visibility: visible';
         let doc = document.getElementById('outcome');
         // Generate a random number between 0 and 1
         let random = Math.floor(Math.random() * 2);
@@ -39,7 +39,7 @@ const Coinflip = (props) => {
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
            
-        document.getElementById('betButton').style = 'visibility: hidden';
+        document.getElementById('betForm').style = 'visibility: hidden';
         props.setCoins(currCoins);
         // Change the buttons to visible
         document.getElementById('buttonsDiv').style = 'visibility: visible';
@@ -51,21 +51,22 @@ const Coinflip = (props) => {
 
     return (
         <div>
-            <h1>Pick One</h1>
-            <p>Double or nothing</p>
-            <div id='outcome'>
+            <h1>Coin Flip</h1>
+            <div className='mt-4 mb-4' id='outcome'>
                 <img src={process.env.PUBLIC_URL + '/images/Coins/tails.png'} style={{height: '200px'}} alt='heads'></img>
             </div>
-            <form onSubmit={play}>
-                <div>
-                    <label>Bet</label>
-                    <input type='number'step='.01' min={.01} max={props.coins} required onChange={handleWagerChange} id='wager'></input>
+            <form className='form-group' onSubmit={play}>
+                <div id='betForm'>
+                    <div className='col-md-4 mx-auto'>
+                        <label className='font-weight-bold' htmlFor='bet'>Bet</label>
+                        <input className='form-control' name='bet' type='number'step='.01' min={.01} max={props.coins} required onChange={handleWagerChange} id='wager'></input>
+                    </div>
+                    <input className='btn btn-dark pl-3 pr-3 mt-2' type='submit' value='Place Bet'></input>
                 </div>
-                <input id='betButton' type='submit' value='Place Bet'></input>
             </form>
             <div id='buttonsDiv' style={{visibility: 'hidden'}}>
-                <button onClick={() => {coinToss(0)}}>Heads</button>
-                <button onClick={() => {coinToss(1)}}>Tails</button>
+                <button className='btn btn-dark mr-2' onClick={() => {coinToss(0)}}>Heads</button>
+                <button className='btn btn-dark ml-2' onClick={() => {coinToss(1)}}>Tails</button>
             </div>
             
         </div>

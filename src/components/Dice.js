@@ -25,7 +25,7 @@ class Dice extends Component {
         event.preventDefault();
         // Make play buttons visible and make bet button invisible
         document.getElementById('buttonsDiv').style = 'visibility: visible';
-        document.getElementById('betButton').style = 'visibility: hidden';
+        document.getElementById('betForm').style = 'visibility: hidden';
         // Deduct current bet from current amount of coins
         let currCoins = this.props.coins - this.props.wager;
         this.props.setCoins(currCoins);
@@ -45,7 +45,7 @@ class Dice extends Component {
     compareSingle(num) {
         // Make play buttons invisible and make bet button visible
         document.getElementById('buttonsDiv').style = 'visibility: hidden';
-        document.getElementById('betButton').style = 'visibility: visible';
+        document.getElementById('betForm').style = 'visibility: visible';
         this.rollAll();
         // Set the timeout to allow for the rolledNum state to be set
         setTimeout(() => {this.determineOutcome1(this.state.rolledNum, num)}, 1000);
@@ -62,7 +62,7 @@ class Dice extends Component {
     compareTwoTimes(num) {
         // Make play buttons invisible and make bet button visible
         document.getElementById('buttonsDiv').style = 'visibility: hidden';
-        document.getElementById('betButton').style = 'visibility: visible';
+        document.getElementById('betForm').style = 'visibility: visible';
 
         this.rollAll();
         // Set the timeout to allow for the rolledNum state to be set
@@ -81,7 +81,7 @@ class Dice extends Component {
     compareFourTimes(num) {
         // Make play buttons invisible and make bet button visible
         document.getElementById('buttonsDiv').style = 'visibility: hidden';
-        document.getElementById('betButton').style = 'visibility: visible';
+        document.getElementById('betForm').style = 'visibility: visible';
 
         this.rollAll();
         // Set the timeout to allow for the rolledNum state to be set
@@ -126,11 +126,13 @@ class Dice extends Component {
               rollTime={1}
             />
             <form className='form-group' onSubmit={this.play}>
-                <div className='col-md-4 mx-auto'>
-                    <label className='font-weight-bold' htmlFor='bet'>Bet</label>
-                    <input className='form-control' name='bet' type='number' step='.01' min='.01' max={this.props.coins} onChange={this.handleWagerChange}></input>
+                <div id='betForm'>
+                    <div className='col-md-4 mx-auto'>
+                        <label className='font-weight-bold' htmlFor='bet'>Bet</label>
+                        <input className='form-control' name='bet' type='number' step='.01' min='.01' max={this.props.coins} onChange={this.handleWagerChange}></input>
+                    </div>
+                    <input className='btn btn-dark pl-3 pr-3 mt-2' type='submit' value='Place Bet'></input>
                 </div>
-                <input className='btn btn-dark pl-3 pr-3 mt-2' id='betButton' type='submit' value='Place Bet'></input>
             </form>
             <div className='container' id='buttonsDiv' style={{visibility:'hidden'}}>
                 <div className='pt-2 pb-3 mb-2'>
