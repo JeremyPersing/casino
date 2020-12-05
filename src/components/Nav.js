@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
     return (
-        <div class='d-flex justify-content-center'> 
+        <div class='d-flex justify-content-center mb-4'> 
             <ul class='nav nav-tabs'>
                 <li class='nav-item'>
                     <Link class='nav-link' to='/' exact>Home</Link>

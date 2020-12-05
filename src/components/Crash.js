@@ -76,6 +76,7 @@ const Crash = (props) => {
 
     // Function that creates the angular chart
     function createChart(multFactor) {
+        document.getElementById('multiplierHeader').style = 'visibility: visible';
         // Themes
         am4core.useTheme(am4themes_dataviz);
         am4core.useTheme(am4themes_animated);
@@ -130,18 +131,20 @@ const Crash = (props) => {
     return (
         <div>
             <h1>Crash</h1>
-            <form onSubmit={play}>
-                <div>
-                    <label>Bet</label>
-                    <input type='number' step='.01' min={.01} required max={props.coins} onChange={handleWagerChange} id='wager'></input>
+            <form class='ml-5 mr-5' onSubmit={play}>
+                <div class='form-row'>
+                    <div class='col-md-6'>
+                        <label class='font-weight-bold' for='bet'>Bet</label>
+                        <input type='number' class='form-control' name='bet' step='.01' min={.01} required max={props.coins} onChange={handleWagerChange} id='wager'></input>
+                    </div>
+                    <div class='col-md-6'>
+                        <label class='font-weight-bold' for='multiplier'>Multiplier (2.5x Minimum)</label>
+                        <input type='number' class='form-control' name='multiplier' step='.1' min='2.5' required max={15} onChange={handleMultiplierChange}></input>
+                    </div>
                 </div>
-                <div>
-                    <label>Multiplier (2.5x Minimum)</label>
-                    <input type='number' step='.1' min='2.5' required max={15} onChange={handleMultiplierChange}></input>
-                </div>
-                <input type='submit' value='Place'></input>
+                <input class='btn btn-dark pl-3 pr-3 mt-2' type='submit' value='Place'></input>
             </form>
-            <h2>Multiplier: {rMultiplier}</h2>
+            <h2 id='multiplierHeader' style={{visibility: 'hidden'}}>Multiplier: {rMultiplier}</h2>
             <div id="chartdiv" style={{width: '100%', height: '500px'}}></div>
         </div>
     )
