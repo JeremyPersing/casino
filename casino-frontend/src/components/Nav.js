@@ -5,7 +5,7 @@ const Nav = (props) => {
         <div className='d-flex justify-content-center mb-4'> 
             <ul className='nav nav-tabs'>
                 <li className='nav-item'>
-                    <Link className='nav-link' to='/'>Home</Link>
+                    <Link className='nav-link' to='/home'>Home</Link>
                 </li>
                 <li className='nav-item'>
                     <Link className='nav-link' to='/blackjack'>Blackjack</Link>

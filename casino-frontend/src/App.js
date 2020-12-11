@@ -7,7 +7,8 @@ import CoinFlip from './components/Coinflip';
 import Dice from './components/Dice';
 import Crash from './components/Crash';
 import Roulette from './components/Roulette';
-
+import Login from './components/Login';
+import Register from './components/Register';
 
 const App = () => {
   const [coins, setCoins] = useState(500);
@@ -17,7 +18,10 @@ const App = () => {
   <Router>
       <Nav coins={coins}/>
       <Switch>
-        <Route exact path='/' render={props => (<Home {...props} 
+        <Route exact path='/' component={Login}></Route>
+        <Route path='/register' component={Register}></Route>
+
+        <Route path='/home' render={props => (<Home {...props} 
         coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
 
         <Route path='/blackjack' render={props => (<Blackjack {...props} 
