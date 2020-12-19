@@ -2,22 +2,29 @@ import React, {useState} from 'react';
 import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
 
-const Register = () => {
+const Register = (props) => {
     const [userNameReg, setUserNameReg] = useState('');
     const [passwordReg, setPasswordReg] = useState('');
     const [confirmPasswordReg, setConfirmPasswordReg] = useState('');
     const history = useHistory();
 
+    // Sets a new user's coins balance to 500
+    const setNewUserCoins = () => {
+        props.setUserCoins(500);
+    }
+
     const registerUser = (event) => {
         event.preventDefault();
         if (userNameReg !== '' && passwordReg !== '' && passwordReg === confirmPasswordReg) {
+            setNewUserCoins();
             Axios.post('http://localhost:5000/user', {
                 userName: userNameReg, 
-                password: passwordReg
+                password: passwordReg,
             }).then((response) => {
                 console.log(response);
             });
             history.push('/home')
+            props.setUsersName(userNameReg);
         }
         else {
             if (userNameReg === '') {

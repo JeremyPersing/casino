@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Axios from 'axios';
 
 
-const Login = () => {
+const Login = (props) => {
     const history = useHistory();
     const [usersName, setUsersName] = useState('');
     const [usersPassword, setUsersPassword] = useState('');
@@ -20,6 +20,7 @@ const Login = () => {
             }).then((res) => {
                 if (res.data.length !== 0) {
                     history.push('/home')
+                    props.setUsersName(usersName);
                 }
                 else {
                     alert('Wrong User Name/Password')
@@ -62,7 +63,7 @@ const Login = () => {
             </form>
             <div>
                 <Link to='/register'>Create New Account</Link><br></br>
-                <Link to='/home'>Continue as Guest</Link>
+                <Link to='/home' onClick={() => {props.setUsersName('Guest')}}>Continue as Guest</Link>
             </div>
         </div>
     )

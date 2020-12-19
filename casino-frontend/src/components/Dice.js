@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDice from 'react-dice-complete';
 import 'react-dice-complete/dist/react-dice-complete.css';
+import Nav from './Nav';
 
 class Dice extends Component {
     constructor(props) {
@@ -111,6 +112,7 @@ class Dice extends Component {
     render() {
         return (  
           <div>
+              <Nav coins={this.props.coins} userName={this.props.userName}/>
             <h1>Dice Roll</h1>
             <ReactDice
               numDice={2}

@@ -1,6 +1,5 @@
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import React, {useState} from 'react';
-import Nav from './components/Nav';
 import Home from './components/Home';
 import Blackjack from './components/Blackjack';
 import CoinFlip from './components/Coinflip';
@@ -11,15 +10,18 @@ import Login from './components/Login';
 import Register from './components/Register';
 
 const App = () => {
-  const [coins, setCoins] = useState(500);
+  const [coins, setCoins] = useState(500); // Going to need to change
   const [wager, setWager] = useState(0);
+  const [usersName, setUsersName] = useState();
 
   return (
   <Router>
-      <Nav coins={coins}/>
       <Switch>
-        <Route exact path='/' component={Login}></Route>
-        <Route path='/register' component={Register}></Route>
+        <Route exact path='/' render={props => (<Login {...props}
+        usersName={usersName} setUsersName={setUsersName}></Login>)}></Route>
+
+        <Route path='/register' render={props => (<Register {...props} 
+        usersName={usersName} setUsersName={setUsersName} setUserCoins={setCoins}></Register>)}></Route>
 
         <Route path='/home' render={props => (<Home {...props} 
         coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>

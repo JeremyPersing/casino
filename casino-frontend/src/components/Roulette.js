@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Wheel } from 'react-custom-roulette';
+import Nav from './Nav';
 
 const Roulette = (props) => {
     const [mustSpin, setMustSpin] = useState(false);
@@ -106,6 +107,7 @@ const Roulette = (props) => {
 
     return(
         <div>
+            <Nav coins={props.coins} userName={props.usersName}/>
             <h1>Roulette</h1>
             <div className='mt-4 mb-2'>
                 <Wheel

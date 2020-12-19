@@ -1,5 +1,6 @@
 import React from 'react';
 import '../CSS/coin-animation.css';
+import Nav from './Nav';
 
 const Coinflip = (props) => {
 
@@ -51,6 +52,7 @@ const Coinflip = (props) => {
 
     return (
         <div>
+            <Nav coins={props.coins} userName={props.usersName}/>
             <h1>Coin Flip</h1>
             <div className='mt-4 mb-4' id='outcome'>
                 <img src={process.env.PUBLIC_URL + '/images/Coins/tails.png'} style={{height: '200px'}} alt='heads'></img>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import Nav from './Nav';
 
 const Blackjack = (props) => {
     const [userTotal, setUserTotal] = useState(0);  // Used to hold and display user's total
@@ -216,6 +216,7 @@ const Blackjack = (props) => {
 
     return (
         <div>
+            <Nav coins={props.coins} userName={props.usersName}/>
             <h1>Blackjack</h1>
             <div id='betForm'>
                 <form onSubmit={play}>

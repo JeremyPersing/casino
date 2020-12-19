@@ -3,6 +3,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_dataviz from '@amcharts/amcharts4/themes/dataviz';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import Nav from './Nav';
 
 // Still need to add graphing capabiliity, coin system, and the input for the amount 
 // of coins. Also need to style the application
@@ -130,6 +131,7 @@ const Crash = (props) => {
     
     return (
         <div>
+            <Nav coins={props.coins} userName={props.usersName}/>
             <h1>Crash</h1>
             <form className='ml-5 mr-5' onSubmit={play}>
                 <div className='form-row'>
