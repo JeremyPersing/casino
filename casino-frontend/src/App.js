@@ -21,7 +21,7 @@ const App = () => {
         usersName={usersName} setUsersName={setUsersName}></Login>)}></Route>
 
         <Route path='/register' render={props => (<Register {...props} 
-        usersName={usersName} setUsersName={setUsersName} setUserCoins={setCoins}></Register>)}></Route>
+        usersName={usersName} setUsersName={setUsersName} coins={coins} setUserCoins={setCoins}></Register>)}></Route>
 
         <Route path='/home' render={props => (<Home {...props} 
         coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>

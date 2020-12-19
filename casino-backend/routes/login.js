@@ -6,7 +6,8 @@ router.post('/', async (req, res) => {
     try {
         let user = await User.find({
             userName: req.body.userName,
-            password: req.body.password
+            password: req.body.password,
+            coins: req.body.coins
         })
         res.send(user)
     } 

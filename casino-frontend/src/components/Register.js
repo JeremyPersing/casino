@@ -11,15 +11,17 @@ const Register = (props) => {
     // Sets a new user's coins balance to 500
     const setNewUserCoins = () => {
         props.setUserCoins(500);
+        setTimeout(console.log(props.coins), 1000)
     }
 
     const registerUser = (event) => {
         event.preventDefault();
+        setNewUserCoins();
         if (userNameReg !== '' && passwordReg !== '' && passwordReg === confirmPasswordReg) {
-            setNewUserCoins();
             Axios.post('http://localhost:5000/user', {
                 userName: userNameReg, 
                 password: passwordReg,
+                coins: props.coins
             }).then((response) => {
                 console.log(response);
             });

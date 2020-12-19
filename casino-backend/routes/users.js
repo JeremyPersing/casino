@@ -5,7 +5,8 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     const user = new User({
         userName: req.body.userName,
-        password: req.body.password
+        password: req.body.password,
+        coins: req.body.coins
     })
 
     try {
