@@ -6,8 +6,7 @@ router.post('/', async (req, res) => {
     try {
         let user = await User.find({
             userName: req.body.userName,
-            password: req.body.password,
-            coins: req.body.coins
+            password: req.body.password
         })
         res.send(user)
     } 
@@ -18,7 +17,10 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find({
+            userName: req.body.userName,
+            password: req.body.password
+        });
         res.json(users);
     } catch (err) {
         res.json({message: "Error"})

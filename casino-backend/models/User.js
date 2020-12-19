@@ -11,7 +11,7 @@ const UserSchema = mongoose.Schema({
     },
     coins: {
         type: Number,
-        required: true
+        required: false
     }
 })
 

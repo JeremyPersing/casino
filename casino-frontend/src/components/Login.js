@@ -16,11 +16,13 @@ const Login = (props) => {
         else {
             Axios.post('http://localhost:5000/login', {
                 userName: usersName,
-                password: usersPassword
+                password: usersPassword 
             }).then((res) => {
                 if (res.data.length !== 0) {
                     history.push('/home')
                     props.setUsersName(usersName);
+                    props.setUserCoins(res.data[0].coins);
+                    
                 }
                 else {
                     alert('Wrong User Name/Password')
@@ -63,7 +65,13 @@ const Login = (props) => {
             </form>
             <div>
                 <Link to='/register'>Create New Account</Link><br></br>
-                <Link to='/home' onClick={() => {props.setUsersName('Guest')}}>Continue as Guest</Link>
+                <Link to='/home' 
+                onClick={() => 
+                    {props.setUsersName('Guest');
+                    props.setCoins(500)}}
+                >
+                Continue as Guest
+                </Link>
             </div>
         </div>
     )

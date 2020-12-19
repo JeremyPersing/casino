@@ -10,7 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 
 const App = () => {
-  const [coins, setCoins] = useState(500); // Going to need to change
+  const [coins, setCoins] = useState();
   const [wager, setWager] = useState(0);
   const [usersName, setUsersName] = useState();
 
@@ -18,7 +18,7 @@ const App = () => {
   <Router>
       <Switch>
         <Route exact path='/' render={props => (<Login {...props}
-        usersName={usersName} setUsersName={setUsersName}></Login>)}></Route>
+        usersName={usersName} setUsersName={setUsersName} coins={coins} setUserCoins={setCoins}></Login>)}></Route>
 
         <Route path='/register' render={props => (<Register {...props} 
         usersName={usersName} setUsersName={setUsersName} coins={coins} setUserCoins={setCoins}></Register>)}></Route>
