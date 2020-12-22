@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Wheel } from 'react-custom-roulette';
 import Nav from './Nav';
+import Axios from 'axios';
 
 const Roulette = (props) => {
     const [mustSpin, setMustSpin] = useState(false);
@@ -15,6 +16,15 @@ const Roulette = (props) => {
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
         props.setCoins(currCoins);
+
+        Axios.put('http://localhost:5000/user', {
+            userName: props.usersName,
+            coins: currCoins
+        }).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        });
     }
     
     const handleWagerChange = (event) => {
@@ -66,17 +76,41 @@ const Roulette = (props) => {
 
     // Determines the outome and displays the amount won
     const determineOutcome = (winningColor, userPick) => {
-        winningColor = winningColor.toUpperCase()
+        winningColor = winningColor.toUpperCase();
         userPick = userPick.toUpperCase();
         
         if (userPick === winningColor) {
             // Green multiplier = x13
             if (winningColor === 'GREEN') {
-                setTimeout(() => {props.setCoins(props.coins + (props.wager * 13))}, 11250);
+                setTimeout(() => {
+                    let endResult = props.coins + (props.wager * 13);
+                    props.setCoins(endResult);
+
+                    Axios.put('http://localhost:5000/user', {
+                        userName: props.usersName,
+                        coins: endResult
+                    }).then((res) => {
+                        console.log(res)
+                    }).catch((err) => {
+                        console.log(err)
+                    });
+                }, 11250);
             }
             // Red and black multiplier = x2
             else {
-                setTimeout(() => {props.setCoins(props.coins + (props.wager * 2))}, 11250);
+                setTimeout(() => {
+                    let endResult = props.coins + (props.wager * 2);
+                    props.setCoins(endResult);
+
+                    Axios.put('http://localhost:5000/user', {
+                        userName: props.usersName,
+                        coins: endResult
+                    }).then((res) => {
+                        console.log(res)
+                    }).catch((err) => {
+                        console.log(err)
+                    });
+                }, 11250);
             }
         }
     }

@@ -4,6 +4,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_dataviz from '@amcharts/amcharts4/themes/dataviz';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import Nav from './Nav';
+import Axios from 'axios';
 
 // Still need to add graphing capabiliity, coin system, and the input for the amount 
 // of coins. Also need to style the application
@@ -39,6 +40,15 @@ const Crash = (props) => {
         
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
+
+        Axios.put('http://localhost:5000/user', {
+                userName: props.usersName,
+                coins: currCoins
+            }).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
         
         
         props.setCoins(currCoins);
@@ -71,6 +81,15 @@ const Crash = (props) => {
         setRMultipler(parseFloat(randomMultiplier).toFixed(2));
         if (usersPick <= randomMultiplier) {
             let result = (props.coins - props.wager) + (props.wager * userBet);
+            Axios.put('http://localhost:5000/user', {
+                userName: props.usersName,
+                coins: result
+            }).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
+
             setTimeout(() => {
                 props.setCoins(result);
                 

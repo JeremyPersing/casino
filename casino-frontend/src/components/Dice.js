@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDice from 'react-dice-complete';
 import 'react-dice-complete/dist/react-dice-complete.css';
 import Nav from './Nav';
+import Axios from 'axios';
 
 class Dice extends Component {
     constructor(props) {
@@ -29,6 +30,16 @@ class Dice extends Component {
         document.getElementById('betForm').style = 'visibility: hidden';
         // Deduct current bet from current amount of coins
         let currCoins = this.props.coins - this.props.wager;
+        
+        Axios.put('http://localhost:5000/user', {
+            userName: this.props.usersName,
+            coins: currCoins
+        }).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        })
+
         this.props.setCoins(currCoins);
     }
 
@@ -55,7 +66,17 @@ class Dice extends Component {
     // Determines the outcome on a single number bet
     determineOutcome1(rolledNum, guessedNum) {
         if (rolledNum === guessedNum) {
-            this.props.setCoins(this.props.coins + (this.props.wager * 12))
+            let endResult = this.props.coins + (this.props.wager * 12);
+            this.props.setCoins(endResult)
+
+            Axios.put('http://localhost:5000/user', {
+            userName: this.props.usersName,
+            coins: endResult
+            }).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
         }
     }
 
@@ -73,7 +94,17 @@ class Dice extends Component {
     // Determines the outcome on a 50/50 bet
     determineOutcome2(rolledNum, guessedNum) {
         if ((rolledNum <= 6 && guessedNum === 6) || (rolledNum >= 7 && guessedNum === 7)) {
-            this.props.setCoins(this.props.coins + (this.props.wager * 2))
+            let endResult = this.props.coins + (this.props.wager * 2);
+            this.props.setCoins(endResult);
+
+            Axios.put('http://localhost:5000/user', {
+            userName: this.props.usersName,
+            coins: endResult
+            }).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
         }
         
     }
@@ -91,22 +122,37 @@ class Dice extends Component {
 
     // Determines the outcome for a 4x bet
     determineOutcome3(rolledNum, guessedNum) {
+        let endResult = this.props.coins;
+
         if (rolledNum <= 3 && guessedNum === 3) {
             console.log('between 1 and 3');
-            this.props.setCoins(this.props.coins + (this.props.wager * 4));
+            endResult = this.props.coins + (this.props.wager * 4);
+            this.props.setCoins(endResult);
         }
         else if ((rolledNum >= 4 && rolledNum <= 6) && guessedNum === 6) {
             console.log('between 4 and 6');
-            this.props.setCoins(this.props.coins + (this.props.wager * 4));
+            endResult = this.props.coins + (this.props.wager * 4);
+            this.props.setCoins(endResult);
         }
         else if ((rolledNum >= 7 && rolledNum <= 9) && guessedNum === 9) {
             console.log('between 7 and 9');
-            this.props.setCoins(this.props.coins + (this.props.wager * 4));
+            endResult = this.props.coins + (this.props.wager * 4);
+            this.props.setCoins(endResult);
         }
         else if (rolledNum >= 10 && guessedNum === 10) {
             console.log('between 10 and 12');
-            this.props.setCoins(this.props.coins + (this.props.wager * 4));
+            endResult = this.props.coins + (this.props.wager * 4);
+            this.props.setCoins(endResult);
         }
+
+        Axios.put('http://localhost:5000/user', {
+            userName: this.props.usersName,
+            coins: endResult
+            }).then((res) => {
+                console.log(res)
+            }).catch((err) => {
+                console.log(err)
+            })
     }
 
     render() {
