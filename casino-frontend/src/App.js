@@ -8,6 +8,7 @@ import Crash from './components/Crash';
 import Roulette from './components/Roulette';
 import Login from './components/Login';
 import Register from './components/Register';
+import MoreCoins from './components/MoreCoins';
 
 const App = () => {
   const [coins, setCoins] = useState(0);
@@ -22,6 +23,9 @@ const App = () => {
 
         <Route path='/register' render={props => (<Register {...props} 
         usersName={usersName} setUsersName={setUsersName} coins={coins} setUserCoins={setCoins}></Register>)}></Route>
+
+        <Route path='/morecoins' render={props => (<MoreCoins {...props} 
+        usersName={usersName} setUsersName={setUsersName} coins={coins} setUserCoins={setCoins}></MoreCoins>)}></Route>
 
         <Route path='/home' render={props => (<Home {...props} 
         coins={coins} setCoins={setCoins} wager={wager} setWager={setWager} usersName={usersName} setUsersName={setUsersName}/>)}></Route>
