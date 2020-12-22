@@ -71,7 +71,10 @@ const Crash = (props) => {
         setRMultipler(parseFloat(randomMultiplier).toFixed(2));
         if (usersPick <= randomMultiplier) {
             let result = (props.coins - props.wager) + (props.wager * userBet);
-            setTimeout(() => {props.setCoins(result)}, 2000);
+            setTimeout(() => {
+                props.setCoins(result);
+                
+            }, 2000);
         }
     }
 
@@ -131,7 +134,7 @@ const Crash = (props) => {
     
     return (
         <div>
-            <Nav coins={props.coins} userName={props.usersName}/>
+            <Nav coins={props.coins} userName={props.usersName} usersName={props.usersName} setUsersName={props.setUsersName}/>
             <h1>Crash</h1>
             <form className='ml-5 mr-5' onSubmit={play}>
                 <div className='form-row'>

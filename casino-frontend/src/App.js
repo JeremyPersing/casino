@@ -10,7 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 
 const App = () => {
-  const [coins, setCoins] = useState();
+  const [coins, setCoins] = useState(0);
   const [wager, setWager] = useState(0);
   const [usersName, setUsersName] = useState();
 
@@ -24,22 +24,22 @@ const App = () => {
         usersName={usersName} setUsersName={setUsersName} coins={coins} setUserCoins={setCoins}></Register>)}></Route>
 
         <Route path='/home' render={props => (<Home {...props} 
-        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager} usersName={usersName} setUsersName={setUsersName}/>)}></Route>
 
         <Route path='/blackjack' render={props => (<Blackjack {...props} 
-        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager} usersName={usersName} setUsersName={setUsersName}/>)}></Route>
 
         <Route path='/coinflip' render={props => (<CoinFlip {...props} 
-        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager} usersName={usersName} setUsersName={setUsersName}/>)}></Route>
 
         <Route path='/dice' render={props => (<Dice {...props} 
-        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager} usersName={usersName} setUsersName={setUsersName}/>)}></Route>
 
         <Route path='/crash' render={props => (<Crash {...props} 
-        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager} usersName={usersName} setUsersName={setUsersName}/>)}></Route>
 
         <Route path='/roulette' render={props => (<Roulette {...props} 
-        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager}/>)}></Route>
+        coins={coins} setCoins={setCoins} wager={wager} setWager={setWager} usersName={usersName} setUsersName={setUsersName}/>)}></Route>
       </Switch>
     </Router>
   );

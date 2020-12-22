@@ -1,6 +1,7 @@
 import React from 'react';
 import '../CSS/coin-animation.css';
 import Nav from './Nav';
+import Axios from 'axios';
 
 const Coinflip = (props) => {
 
@@ -12,6 +13,15 @@ const Coinflip = (props) => {
             
             let endResult = props.coins + result;
             props.setCoins(endResult);
+
+            Axios.put('http://localhost:5000/user', {
+                userName: props.usersName,
+                coins: endResult
+            }).then((response) => {
+                console.log(response)
+            }).catch((err) => {
+                console.log(err);
+            })
         }
     }
 
@@ -39,6 +49,15 @@ const Coinflip = (props) => {
         
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
+
+        Axios.put('http://localhost:5000/user', {
+                userName: props.usersName,
+                coins: currCoins
+            }).then((response) => {
+                console.log(response)
+            }).catch((err) => {
+                console.log(err);
+            })
            
         document.getElementById('betForm').style = 'visibility: hidden';
         props.setCoins(currCoins);
@@ -52,7 +71,7 @@ const Coinflip = (props) => {
 
     return (
         <div>
-            <Nav coins={props.coins} userName={props.usersName}/>
+            <Nav coins={props.coins} userName={props.usersName} usersName={props.usersName} setUsersName={props.setUsersName}/>
             <h1>Coin Flip</h1>
             <div className='mt-4 mb-4' id='outcome'>
                 <img src={process.env.PUBLIC_URL + '/images/Coins/tails.png'} style={{height: '200px'}} alt='heads'></img>

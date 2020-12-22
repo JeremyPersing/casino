@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Nav from './Nav';
+import Axios from 'axios';
 
 const Blackjack = (props) => {
     const [userTotal, setUserTotal] = useState(0);  // Used to hold and display user's total
@@ -16,7 +17,16 @@ const Blackjack = (props) => {
         
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
+        console.log(currCoins);
         props.setCoins(currCoins);
+        Axios.post('http://localhost:5000/user', {
+            userName: props.userName,
+            coins: currCoins
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     const handleWagerChange = (event) => {
@@ -149,24 +159,44 @@ const Blackjack = (props) => {
     }
 
     const compareTotals = (playerTotal, dealerTotal) => {
+        let endCoins = props.coins;  // Amount of coins at the end of the round
+        console.log(endCoins);
         // The user has 21 and the dealer does not
         if (playerTotal === 21 && dealerTotal !== 21) {
-            props.setCoins(props.coins + (props.wager * 2.5));
+            endCoins = props.coins + (props.wager * 2.5);
+            console.log(endCoins)
+            props.setCoins(endCoins);
         }
         // Both the user and dealer have the same total
         else if (playerTotal === dealerTotal) {
             // Need to multiply by 1 otherwise js will read wager as a string and concatenate both
-            props.setCoins(props.coins + (props.wager * 1));
+            endCoins = props.coins + (props.wager * 1)
+            console.log(endCoins)
+            props.setCoins(endCoins);
         }
         // The user has a total under 21 and a higher total than the dealer
         else if (playerTotal < 21 && playerTotal > dealerTotal) {
-            props.setCoins(props.coins + (props.wager * 2));
+            endCoins = props.coins + (props.wager * 2);
+            console.log(endCoins)
+            props.setCoins(endCoins);
         }
         // The user did not bust but the dealer did
         else if (playerTotal < 21 && dealerTotal > 21) {
+            endCoins = props.coins + (props.wager * 2);
+            console.log(endCoins)
             props.setCoins(props.coins + (props.wager * 2));
         }
-        setTimeout(() => {playAgain()}, 2000);
+        setTimeout(() => {
+            playAgain();
+            Axios.put('http://localhost:5000/user', {
+                userName: props.usersName, 
+                coins: endCoins
+            }).then((response) => {
+                console.log(response);
+            }).catch(error => {
+                console.log(error);
+            });
+        }, 2000);
     }
 
     const playAgain = () => {
@@ -216,7 +246,7 @@ const Blackjack = (props) => {
 
     return (
         <div>
-            <Nav coins={props.coins} userName={props.usersName}/>
+            <Nav coins={props.coins} userName={props.usersName} usersName={props.usersName} setUsersName={props.setUsersName}/>
             <h1>Blackjack</h1>
             <div id='betForm'>
                 <form onSubmit={play}>

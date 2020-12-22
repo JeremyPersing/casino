@@ -68,7 +68,7 @@ const Login = (props) => {
                 <Link to='/home' 
                 onClick={() => 
                     {props.setUsersName('Guest');
-                    props.setCoins(500)}}
+                    props.setUserCoins(500)}}
                 >
                 Continue as Guest
                 </Link>

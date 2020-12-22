@@ -12,8 +12,8 @@ router.post('/', async (req, res) => {
     try {
         const givenUser = await user.save()
         res.json(givenUser);
-    } catch (e) {
-        res.json({message: e});
+    } catch (err) {
+        res.json({message: err});
     }
 })
 
@@ -24,6 +24,16 @@ router.get('/', async (req, res) => {
     } 
     catch (err) {
         res.json({message: err})
+    }
+})
+
+router.put('/', async (req, res) => {
+    try {
+        const updatedUser = await User.updateOne({userName: req.body.userName}, {$set: {coins: req.body.coins}});
+        res.json(updatedUser);
+    } 
+    catch (err) {
+        res.json()
     }
 })
 
