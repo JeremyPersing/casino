@@ -13,10 +13,12 @@ app.use(bodyParser.json());
 // Routes
 const userRoute = require('./routes/users');
 const loginRoute = require('./routes/login')
+const userNameRoute = require('./routes/username');
 
 // Middleware for route
 app.use('/user', userRoute);
 app.use('/login', loginRoute);
+app.use('/username', userNameRoute);
 
 mongoose.connect(
   process.env.DB_CONNECTION,

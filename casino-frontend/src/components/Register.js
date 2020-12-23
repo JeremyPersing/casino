@@ -13,10 +13,13 @@ const Register = (props) => {
         props.setUserCoins(500);
     }
 
+    // When the username has been verfied to be original the user can 
+    // enter a password and then that account will be registered in the db
     const registerUser = (event) => {
         event.preventDefault();
         setNewUserCoins();
-        if (userNameReg !== '' && passwordReg !== '' && passwordReg === confirmPasswordReg) {
+        let validCredentials = checkValidCredentials();
+        if (validCredentials === true) {
             Axios.post('http://localhost:5000/user', {
                 userName: userNameReg, 
                 password: passwordReg,
@@ -26,6 +29,46 @@ const Register = (props) => {
             });
             history.push('/home')
             props.setUsersName(userNameReg);
+        }
+    }
+
+    // This function checks if the username that the
+    // user entered exists or not
+    const checkUsername = (e) => {
+        e.preventDefault();
+        Axios.post('http://localhost:5000/username', {
+            userName: userNameReg
+        }).then((res) => {
+            let existingUserName = userNameExists(res);
+            if (existingUserName) {
+                alert('User Name Already Exists. Please Enter a Different One');
+            }
+            else {
+                swapForms();
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+        
+    }
+
+    // This function checks if the response data array has any data or no
+    const userNameExists = (res) => {
+        if (res.data[0]) {
+            // Username already exists, user can't use that name
+            return true
+        }
+        else {
+            // Username does not exist, the user can use that name
+            return false;
+        }
+    }
+
+    // THis function checks that the userName isn't blank and the user's passwords
+    // are the same
+    const checkValidCredentials = () => {
+        if (userNameReg !== '' && passwordReg !== '' && passwordReg === confirmPasswordReg) {
+            return true;
         }
         else {
             if (userNameReg === '') {
@@ -40,11 +83,18 @@ const Register = (props) => {
         }
     }
 
+    // This function makes the userName form invisible and makes the 
+    // password form visible when the password has been cleared to be available
+    const swapForms = () => {
+        document.getElementById('userNameForm').style = 'visibility: hidden';
+        document.getElementById('userPasswordForm').style = 'visibility: visible';
+    }
+
     return (
         <div>
-            <form onSubmit={registerUser}>
+            <form id='userNameForm' onSubmit={checkUsername}>
                 <div className='form-group'>
-                    <label className='font-weight-bold'>User Name</label>
+                    <label className='font-weight-bold'>Enter a User Name</label>
                     <input 
                     type='text' 
                     className='form-control' 
@@ -52,7 +102,13 @@ const Register = (props) => {
                     onChange={(e) => {
                         setUserNameReg(e.target.value);
                     }}></input>
+                    <input 
+                    className='btn btn-primary' 
+                    type='submit' 
+                    value='Enter'></input>
                 </div>
+            </form>
+            <form id='userPasswordForm' style={{visibility: 'hidden'}} onSubmit={registerUser}>
                 <div className='form-group'>
                     <label className='font-weight-bold'>Password</label>
                     <input 
