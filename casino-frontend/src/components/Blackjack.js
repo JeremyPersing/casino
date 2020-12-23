@@ -246,7 +246,7 @@ const Blackjack = (props) => {
 
     return (
         <div>
-            <Nav coins={props.coins} userName={props.usersName} usersName={props.usersName} setUsersName={props.setUsersName}/>
+            <Nav coins={props.coins} usersName={props.usersName} setUsersName={props.setUsersName}/>
             <h1>Blackjack</h1>
             <div id='betForm'>
                 <form onSubmit={play}>

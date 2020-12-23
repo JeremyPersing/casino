@@ -8,7 +8,7 @@ const Home = (props) => {
 
   return (
     <div>
-      <Nav coins={props.coins} userName={props.usersName} usersName={props.usersName} setUsersName={props.setUsersName}/>
+      <Nav coins={props.coins} usersName={props.usersName} setUsersName={props.setUsersName}/>
       <h1>Home</h1>
       <p>For all of these games, input the amount of coins that you want to bet.</p>
       <div>

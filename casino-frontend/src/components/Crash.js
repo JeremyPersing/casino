@@ -153,7 +153,7 @@ const Crash = (props) => {
     
     return (
         <div>
-            <Nav coins={props.coins} userName={props.usersName} usersName={props.usersName} setUsersName={props.setUsersName}/>
+            <Nav coins={props.coins} usersName={props.usersName} setUsersName={props.setUsersName}/>
             <h1>Crash</h1>
             <form className='ml-5 mr-5' onSubmit={play}>
                 <div className='form-row'>

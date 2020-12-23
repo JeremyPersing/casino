@@ -141,7 +141,7 @@ const Roulette = (props) => {
 
     return(
         <div>
-            <Nav coins={props.coins} userName={props.usersName}/>
+            <Nav coins={props.coins} usersName={props.usersName} setUsersName={props.setUsersName}/>
             <h1>Roulette</h1>
             <div className='mt-4 mb-2'>
                 <Wheel

@@ -68,8 +68,13 @@ const Login = (props) => {
                 <Link to='/register'>Create New Account</Link><br></br>
                 <Link to='/home' 
                 onClick={() => 
-                    {props.setUsersName('Guest');
-                    props.setUserCoins(500)}}
+                    {localStorage.setItem('user', 'Guest');
+                    props.setUsersName('Guest');
+                    Axios.post('http://localhost:5000/username', {
+                        userName: 'Guest'
+                    }).then((res) => {
+                        props.setUserCoins(res.data[0].coins);
+                    })}}
                 >
                 Continue as Guest
                 </Link>

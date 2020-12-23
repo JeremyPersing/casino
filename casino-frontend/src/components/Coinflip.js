@@ -71,7 +71,7 @@ const Coinflip = (props) => {
 
     return (
         <div>
-            <Nav coins={props.coins} userName={props.usersName} usersName={props.usersName} setUsersName={props.setUsersName}/>
+            <Nav coins={props.coins} usersName={props.usersName} setUsersName={props.setUsersName}/>
             <h1>Coin Flip</h1>
             <div className='mt-4 mb-4' id='outcome'>
                 <img src={process.env.PUBLIC_URL + '/images/Coins/tails.png'} style={{height: '200px'}} alt='heads'></img>
