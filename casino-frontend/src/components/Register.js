@@ -25,7 +25,8 @@ const Register = (props) => {
                 password: passwordReg,
                 coins: 500
             }).then((response) => {
-                console.log(response);
+                console.log(response.data.userName);
+                localStorage.setItem('user', response.data.userName);
             });
             history.push('/home')
             props.setUsersName(userNameReg);

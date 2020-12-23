@@ -1,5 +1,5 @@
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Home from './components/Home';
 import Blackjack from './components/Blackjack';
 import CoinFlip from './components/Coinflip';
@@ -9,11 +9,26 @@ import Roulette from './components/Roulette';
 import Login from './components/Login';
 import Register from './components/Register';
 import MoreCoins from './components/MoreCoins';
+import Axios from 'axios';
 
 const App = () => {
   const [coins, setCoins] = useState(0);
   const [wager, setWager] = useState(0);
   const [usersName, setUsersName] = useState();
+  
+  useEffect(() => {
+    console.log('using useEffect now');
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      console.log(loggedInUser)
+      Axios.post('http://localhost:5000/username', {
+        userName: loggedInUser
+      }).then((res) => {
+        setUsersName(res.data[0].userName); // Users name
+        setCoins(res.data[0].coins); // Users coins
+      })
+    }
+  }, []);
 
   return (
   <Router>

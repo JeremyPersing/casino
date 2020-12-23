@@ -22,8 +22,8 @@ const MoreCoins = (props) => {
     return(
         <div>
             <Nav coins={props.coins} userName={props.usersName}/>
-            <h1>More coins Page</h1>
-            <button onClick={addCoins}>Get Some Coins</button>
+            <h1>Your Friendly Coin Bar</h1>
+            <button className='btn btn-primary' onClick={addCoins}>Free Coins</button>
         </div>
     )
 }

@@ -22,7 +22,8 @@ const Login = (props) => {
                     history.push('/home')
                     props.setUsersName(usersName);
                     props.setUserCoins(res.data[0].coins);
-                    
+                    console.log(res.data[0].userName);
+                    localStorage.setItem('user', res.data[0].userName);
                 }
                 else {
                     alert('Wrong User Name/Password')

@@ -26,6 +26,7 @@ const Nav = (props) => {
                 <li className='nav-item'>
                     <Link className='nav-link' to='/morecoins'>More Coins</Link>
                 </li>
+                <li className='nav-item'>{props.usersName}</li>
                 <li className='mr-auto mt-2'>
                 <img src={process.env.PUBLIC_URL + '/images/bitcoinlogo.png'} alt='Coins Logo' style={{height: '25px'}}></img>
                 {parseFloat(props.coins).toFixed(2)}
