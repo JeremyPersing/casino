@@ -1,0 +1,31 @@
+.login-form {
+    width: 450px;
+    height: 300px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+@media only screen 
+and (max-device-width: 480px) {
+    .login-form {
+        width: 300px;
+        height: 300px;
+        margin: auto;
+        padding: 10px;
+        padding-bottom: 40px;
+        margin-top: 100px;
+    }
+}
+
+@media only screen 
+and (max-device-width: 3000px)
+and (min-device-width: 1500px) {
+    .login-form {
+        width: 600px;
+        height: 600px;
+        margin: auto;
+        padding: 10px;
+        padding-bottom: 40px;
+        margin-top: 100px;
+    }
+}

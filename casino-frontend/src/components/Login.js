@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Axios from 'axios';
+import '../CSS/styles.css';
 
 
 const Login = (props) => {
@@ -33,9 +34,8 @@ const Login = (props) => {
     }
 
     return (
-        <div className='border p-2 ml-5 mr-5 mt-5'>
+        <div className='login-form'>
             <form>
-                <h3>Login</h3>
                 <div className='form-group'>
                     <label 
                     htmlFor='userName' 
@@ -60,24 +60,30 @@ const Login = (props) => {
                     }}></input>
                 </div>
                 <button 
-                className='btn btn-primary'
+                className='btn btn-primary btn-block'
                 onClick={loginUser} 
                 >Log In</button>
             </form>
             <div>
-                <Link to='/register'>Create New Account</Link><br></br>
-                <Link to='/home' 
-                onClick={() => 
-                    {localStorage.setItem('user', 'Guest');
-                    props.setUsersName('Guest');
-                    Axios.post('http://localhost:5000/username', {
-                        userName: 'Guest'
-                    }).then((res) => {
-                        props.setUserCoins(res.data[0].coins);
-                    })}}
-                >
-                Continue as Guest
-                </Link>
+                <div className='row'>
+                    <div className='offset-1 col-5'>
+                        <Link to='/register'>Create New Account</Link><br></br>
+                    </div>
+                    <div className='col-5'>
+                        <Link to='/home' 
+                        onClick={() => 
+                        {localStorage.setItem('user', 'Guest');
+                        props.setUsersName('Guest');
+                        Axios.post('http://localhost:5000/username', {
+                            userName: 'Guest'
+                        }).then((res) => {
+                            props.setUserCoins(res.data[0].coins);
+                        })}}
+                        >
+                        Continue as Guest
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
     )
