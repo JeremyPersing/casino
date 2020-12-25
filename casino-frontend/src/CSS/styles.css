@@ -5,8 +5,35 @@
     margin-top: 100px;
 }
 
+/* Navbar */
+.navbar-center {
+    margin: auto;
+}
+
+.nav-link {
+    color: #333;
+}
+
+.nav-link:hover {
+    color: rgb(161, 159, 159);
+}
+
+.former-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+
 @media only screen 
-and (max-device-width: 480px) {
+and (max-width: 767px) {
+    .former-nav {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media only screen 
+and (max-width: 480px) {
     .login-form, .register-form {
         width: 300px;
         height: 300px;

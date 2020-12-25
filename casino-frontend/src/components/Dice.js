@@ -158,7 +158,7 @@ class Dice extends Component {
     render() {
         return (  
           <div>
-              <Nav coins={this.props.coins} usersName={this.props.usersName} setUsersName={this.props.setUsersName}/>
+            <Nav coins={this.props.coins} usersName={this.props.usersName} setUsersName={this.props.setUsersName}/>
             <h1>Dice Roll</h1>
             <ReactDice
               numDice={2}

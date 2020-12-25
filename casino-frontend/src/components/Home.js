@@ -14,7 +14,7 @@ const Home = (props) => {
       <div>
         <Link className='text-decoration-none' to='/blackjack'><h2>Blackjack</h2></Link>
         <div className='mt-4 mb-4'>
-          <img src={process.env.PUBLIC_URL + '/images/Blackjack-Strat-EDIT.jpg'} style={{height: '300px'}} alt='blackjack-poster'></img>
+          {/*<img src={process.env.PUBLIC_URL + '/images/Blackjack-Strat-EDIT.jpg'} style={{height: '300px'}} alt='blackjack-poster'></img>*/}
         </div>
         <p>
           In Blackjack, place your bet and get dealt two cards. From this point if you want 
