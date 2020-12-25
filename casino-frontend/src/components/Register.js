@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Axios from 'axios';
 import {useHistory} from 'react-router-dom';
+import '../CSS/styles.css';
 
 const Register = (props) => {
     const [userNameReg, setUserNameReg] = useState('');
@@ -92,7 +93,7 @@ const Register = (props) => {
     }
 
     return (
-        <div>
+        <div className='register-form'>
             <form id='userNameForm' onSubmit={checkUsername}>
                 <div className='form-group'>
                     <label className='font-weight-bold'>Enter a User Name</label>
