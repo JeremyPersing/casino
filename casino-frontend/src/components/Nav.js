@@ -50,7 +50,7 @@ const Nav = (props) => {
 
     return (
         <div>
-            <Navbar light expand='md'>
+            <Navbar light expand='md' style={{fontSize: '110%'}}>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <FormerNav className='former-nav mr-auto' navbar>

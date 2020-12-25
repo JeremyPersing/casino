@@ -105,7 +105,7 @@ const Register = (props) => {
                         setUserNameReg(e.target.value);
                     }}></input>
                     <input 
-                    className='btn btn-primary' 
+                    className='mt-3 btn btn-primary btn-block' 
                     type='submit' 
                     value='Enter'></input>
                 </div>
@@ -130,7 +130,7 @@ const Register = (props) => {
                     }}></input>
                 </div>
                     <input 
-                    className='btn btn-primary' 
+                    className='btn btn-primary btn-block' 
                     type='submit' 
                     value='Log in'></input>
             </form>
