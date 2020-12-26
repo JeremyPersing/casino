@@ -78,7 +78,7 @@ const Coinflip = (props) => {
             </div>
             <form className='form-group' onSubmit={play}>
                 <div id='betForm'>
-                    <div className='col-md-4 mx-auto'>
+                    <div className='bet-input'>
                         <label className='font-weight-bold' htmlFor='bet'>Bet</label>
                         <input className='form-control' name='bet' type='number'step='.01' min={.01} max={props.coins} required onChange={handleWagerChange} id='wager'></input>
                     </div>

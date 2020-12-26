@@ -156,16 +156,17 @@ const Crash = (props) => {
             <Nav coins={props.coins} usersName={props.usersName} setUsersName={props.setUsersName}/>
             <h1>Crash</h1>
             <form className='ml-5 mr-5' onSubmit={play}>
-                <div className='form-row'>
-                    <div className='col-lg-4 offset-lg-2'>
-                        <label className='font-weight-bold' htmlFor='bet'>Bet</label>
-                        <input type='number' className='form-control' name='bet' step='.01' min={.01} required max={props.coins} onChange={handleWagerChange} id='wager'></input>
-                    </div>
-                    <div className='col-lg-4'>
-                        <label className='font-weight-bold' htmlFor='multiplier'>Multiplier (2.5x Minimum)</label>
-                        <input type='number' className='form-control' name='multiplier' step='.1' min='2.5' required max={15} onChange={handleMultiplierChange}></input>
-                    </div>
+                
+                <div className='bet-input'>
+                    <label className='font-weight-bold' htmlFor='bet'>Bet</label>
+                    <input type='number' className='form-control' name='bet' step='.01' min={.01} required max={props.coins} onChange={handleWagerChange} id='wager'></input>
+                </div>    
+                <div className='bet-input'>
+                    <label className='font-weight-bold' htmlFor='multiplier'>Multiplier (2.5x Minimum)</label>
+                    <input type='number' className='form-control' name='multiplier' step='.1' min='2.5' required max={15} onChange={handleMultiplierChange}></input>
                 </div>
+                    
+                   
                 <input className='btn btn-dark pl-3 pr-3 mt-2' type='submit' value='Place'></input>
             </form>
             <h2 id='multiplierHeader' style={{visibility: 'hidden'}}>Multiplier: {rMultiplier}</h2>

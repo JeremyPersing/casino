@@ -1,3 +1,24 @@
+body {
+    margin: auto;
+}
+
+.responsive {
+    width: 100%;
+    height: auto;
+}
+
+.home-link {
+    color: rgb(32, 32, 32);
+}
+
+.home-link:hover {
+    color:rgb(161, 159, 159);
+}
+
+.bet-input {
+    margin-left: 25%;
+    margin-right: 25%;
+}
 .login-form, .register-form {
     width: 450px;
     height: 300px;

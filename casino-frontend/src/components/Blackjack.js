@@ -250,7 +250,7 @@ const Blackjack = (props) => {
             <h1>Blackjack</h1>
             <div id='betForm'>
                 <form onSubmit={play}>
-                    <div className='col-md-4 mx-auto'>
+                    <div className='bet-input'>
                         <label htmlFor='bet' className='font-weight-bold'>Bet</label>
                         <input name='bet' className='form-control' type='number'step='.01' min={.01} max={props.coins} required onChange={handleWagerChange} id='wager'></input>
                     </div>
