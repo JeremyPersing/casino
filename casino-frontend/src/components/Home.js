@@ -9,7 +9,7 @@ const Home = (props) => {
   return (
     <div>
       <Nav coins={props.coins} usersName={props.usersName} setUsersName={props.setUsersName}/>
-      <h1>Home</h1>
+      <h1>Welcome to Gambler's Paradise</h1>
       <p>For all of these games, input the amount of coins that you want to bet.</p>
       <div>
         <Link className='text-decoration-none home-link' to='/blackjack'><h2 className='mt-4'>Blackjack</h2></Link>
