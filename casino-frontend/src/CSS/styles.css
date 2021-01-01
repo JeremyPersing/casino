@@ -1,0 +1,66 @@
+body {
+    margin: auto;
+}
+
+.responsive {
+    width: 100%;
+    height: auto;
+}
+
+.home-link {
+    color: rgb(32, 32, 32);
+}
+
+.home-link:hover {
+    color:rgb(161, 159, 159);
+}
+
+.bet-input {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.login-form, .register-form {
+    width: 450px;
+    height: 300px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+/* Navbar */
+.navbar-center {
+    margin: auto;
+}
+
+.nav-link {
+    color: rgb(32, 32, 32);
+}
+
+.nav-link:hover {
+    color: rgb(161, 159, 159);
+}
+
+.former-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+
+@media only screen 
+and (max-width: 767px) {
+    .former-nav {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media only screen 
+and (max-width: 480px) {
+    .login-form, .register-form {
+        width: 300px;
+        height: 300px;
+        margin: auto;
+        padding: 10px;
+        padding-bottom: 40px;
+        margin-top: 100px;
+    }
+}

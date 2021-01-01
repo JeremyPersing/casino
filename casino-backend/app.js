@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express();
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -14,6 +15,11 @@ app.use(bodyParser.json());
 const userRoute = require('./routes/users');
 const loginRoute = require('./routes/login')
 const userNameRoute = require('./routes/username');
+
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Middleware for route
 app.use('/user', userRoute);
