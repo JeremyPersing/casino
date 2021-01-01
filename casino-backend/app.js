@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv/config');
-const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -34,4 +33,6 @@ mongoose.connect(
 
 )
 
-app.listen(port);
+app.listen(process.env.PORT || 5000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
