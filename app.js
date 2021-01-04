@@ -31,7 +31,7 @@ app.get('/*', (req,res) => {
 
 // Connect to DB
 mongoose.connect(
-  process.env.DB_CONNECTION,
+  'mongodb+srv://jeremypersing:Jp64966496@cluster0.x4kcm.mongodb.net/Cluster0?retryWrites=true&w=majority',
   { useNewParser: true }, () => {
     console.log(process.env.DB_CONNECTION);
     console.log('You are connected to the DB');

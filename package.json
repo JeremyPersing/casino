@@ -8,7 +8,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "MONGODB_URI=http://localhost:27017 node app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
