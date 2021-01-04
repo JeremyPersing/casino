@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv/config');
+require('dotenv').config();
 const port = process.env.PORT || 5000;
 
 
@@ -32,6 +33,7 @@ app.get('/*', (req,res) => {
 mongoose.connect(
   process.env.DB_CONNECTION,
   { useNewParser: true }, () => {
+    console.log(process.env.DB_CONNECTION);
     console.log('You are connected to the DB');
   }
 
