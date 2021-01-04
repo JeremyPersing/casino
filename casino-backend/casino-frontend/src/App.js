@@ -21,7 +21,7 @@ const App = () => {
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
       console.log(loggedInUser)
-      Axios.post('http://localhost:5000/username', {
+      Axios.post('/username', {
         userName: loggedInUser
       }).then((res) => {
         setUsersName(res.data[0].userName); // Users name

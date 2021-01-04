@@ -19,7 +19,7 @@ const Blackjack = (props) => {
         let currCoins = props.coins - props.wager;
         console.log(currCoins);
         props.setCoins(currCoins);
-        Axios.post('http://localhost:5000/user', {
+        Axios.post('/user', {
             userName: props.userName,
             coins: currCoins
         }).then((res) => {
@@ -188,7 +188,7 @@ const Blackjack = (props) => {
         }
         setTimeout(() => {
             playAgain();
-            Axios.put('http://localhost:5000/user', {
+            Axios.put('/user', {
                 userName: props.usersName, 
                 coins: endCoins
             }).then((response) => {

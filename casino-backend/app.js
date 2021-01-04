@@ -31,7 +31,7 @@ app.get('/*', (req,res) => {
 // Connect to DB
 mongoose.connect(
   process.env.DB_CONNECTION,
-  { useNewParser: true, useUnifiedTopology: true, useFindAndModify: false}, () => {
+  { useNewParser: true }, () => {
     console.log('You are connected to the DB');
   }
 

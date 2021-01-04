@@ -15,7 +15,7 @@ const Login = (props) => {
             alert('Please Enter Your Full Credentials');
         }
         else {
-            Axios.post('http://localhost:5000/login', {
+            Axios.post('/login', {
                 userName: usersName,
                 password: usersPassword 
             }).then((res) => {
@@ -74,7 +74,7 @@ const Login = (props) => {
                         onClick={() => 
                         {localStorage.setItem('user', 'Guest');
                         props.setUsersName('Guest');
-                        Axios.post('http://localhost:5000/username', {
+                        Axios.post('/username', {
                             userName: 'Guest'
                         }).then((res) => {
                             props.setUserCoins(res.data[0].coins);

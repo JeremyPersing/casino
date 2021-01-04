@@ -14,7 +14,7 @@ const Coinflip = (props) => {
             let endResult = props.coins + result;
             props.setCoins(endResult);
 
-            Axios.put('http://localhost:5000/user', {
+            Axios.put('/user', {
                 userName: props.usersName,
                 coins: endResult
             }).then((response) => {
@@ -50,7 +50,7 @@ const Coinflip = (props) => {
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
 
-        Axios.put('http://localhost:5000/user', {
+        Axios.put('/user', {
                 userName: props.usersName,
                 coins: currCoins
             }).then((response) => {

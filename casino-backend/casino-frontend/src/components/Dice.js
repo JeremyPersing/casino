@@ -31,7 +31,7 @@ class Dice extends Component {
         // Deduct current bet from current amount of coins
         let currCoins = this.props.coins - this.props.wager;
         
-        Axios.put('http://localhost:5000/user', {
+        Axios.put('/user', {
             userName: this.props.usersName,
             coins: currCoins
         }).then((res) => {
@@ -69,7 +69,7 @@ class Dice extends Component {
             let endResult = this.props.coins + (this.props.wager * 12);
             this.props.setCoins(endResult)
 
-            Axios.put('http://localhost:5000/user', {
+            Axios.put('/user', {
             userName: this.props.usersName,
             coins: endResult
             }).then((res) => {
@@ -97,7 +97,7 @@ class Dice extends Component {
             let endResult = this.props.coins + (this.props.wager * 2);
             this.props.setCoins(endResult);
 
-            Axios.put('http://localhost:5000/user', {
+            Axios.put('/user', {
             userName: this.props.usersName,
             coins: endResult
             }).then((res) => {
@@ -145,7 +145,7 @@ class Dice extends Component {
             this.props.setCoins(endResult);
         }
 
-        Axios.put('http://localhost:5000/user', {
+        Axios.put('/user', {
             userName: this.props.usersName,
             coins: endResult
             }).then((res) => {

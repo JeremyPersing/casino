@@ -21,7 +21,7 @@ const Register = (props) => {
         setNewUserCoins();
         let validCredentials = checkValidCredentials();
         if (validCredentials === true) {
-            Axios.post('http://localhost:5000/user', {
+            Axios.post('/user', {
                 userName: userNameReg, 
                 password: passwordReg,
                 coins: 500
@@ -38,7 +38,7 @@ const Register = (props) => {
     // user entered exists or not
     const checkUsername = (e) => {
         e.preventDefault();
-        Axios.post('http://localhost:5000/username', {
+        Axios.post('/username', {
             userName: userNameReg
         }).then((res) => {
             let existingUserName = userNameExists(res);

@@ -17,7 +17,7 @@ const Roulette = (props) => {
         let currCoins = props.coins - props.wager;
         props.setCoins(currCoins);
 
-        Axios.put('http://localhost:5000/user', {
+        Axios.put('/user', {
             userName: props.usersName,
             coins: currCoins
         }).then((res) => {
@@ -86,7 +86,7 @@ const Roulette = (props) => {
                     let endResult = props.coins + (props.wager * 13);
                     props.setCoins(endResult);
 
-                    Axios.put('http://localhost:5000/user', {
+                    Axios.put('/user', {
                         userName: props.usersName,
                         coins: endResult
                     }).then((res) => {
@@ -102,7 +102,7 @@ const Roulette = (props) => {
                     let endResult = props.coins + (props.wager * 2);
                     props.setCoins(endResult);
 
-                    Axios.put('http://localhost:5000/user', {
+                    Axios.put('/user', {
                         userName: props.usersName,
                         coins: endResult
                     }).then((res) => {

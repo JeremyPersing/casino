@@ -41,7 +41,7 @@ const Crash = (props) => {
         // Deduct the amount of coins wagered from the total amount of coins
         let currCoins = props.coins - props.wager;
 
-        Axios.put('http://localhost:5000/user', {
+        Axios.put('/user', {
                 userName: props.usersName,
                 coins: currCoins
             }).then((res) => {
@@ -81,7 +81,7 @@ const Crash = (props) => {
         setRMultipler(parseFloat(randomMultiplier).toFixed(2));
         if (usersPick <= randomMultiplier) {
             let result = (props.coins - props.wager) + (props.wager * userBet);
-            Axios.put('http://localhost:5000/user', {
+            Axios.put('/user', {
                 userName: props.usersName,
                 coins: result
             }).then((res) => {

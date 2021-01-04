@@ -9,7 +9,7 @@ const MoreCoins = (props) => {
         let endCoins = props.coins + amount;
         props.setUserCoins(endCoins)
 
-        Axios.put('http://localhost:5000/user', {
+        Axios.put('/user', {
             userName: props.usersName,
             coins: endCoins
         }).then((res) => {
