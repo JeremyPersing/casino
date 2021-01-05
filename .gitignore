@@ -1,3 +1,4 @@
 /node_modules
 .env
 /casino-frontend/node_modules
+/build
