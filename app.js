@@ -29,11 +29,11 @@ app.get('/*', (req,res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
-// Connect to DB
+// Connect to DBS
 mongoose.connect(
-  process.env.MONGODB_URI,
+  process.env.MONGODB_URLS,
   { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log(process.env.MONGODB_URI);
+    console.log(url);
     console.log('You are connected to the DB');
   }
 
