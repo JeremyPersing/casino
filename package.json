@@ -8,8 +8,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "heroku-postbuild": "cd casino-frontend && npm install && npm run build"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,5 +20,6 @@
     "express": "^4.17.1",
     "mongoose": "^5.11.5",
     "nodemon": "^2.0.6"
-  }
+  },
+  "heroku-postbuild": "cd casino-frontend && npm install && npm run build"
 }
