@@ -2,7 +2,6 @@
   "name": "casino",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://gamblers-paradise.herokuapp.com",
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.12",
     "@testing-library/jest-dom": "^5.11.6",
@@ -44,5 +43,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
