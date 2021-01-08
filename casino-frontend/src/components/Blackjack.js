@@ -196,7 +196,7 @@ const Blackjack = (props) => {
             }).catch(error => {
                 console.log(error);
             });
-        }, 2000);
+        }, 4000);
     }
 
     const playAgain = () => {
