@@ -4,7 +4,7 @@
 This application features 5 different games which include blackjack, crash, roulette, coin flip, and dice roll. It also features the ability to have an account
 that keeps track of the amount of coins a player has. In addition to this, the user is able to "gamble" with these coins and has the potential to win coins.
 
-# Technologies Learned
+# Technologies Used
 Node, Exress, MongoDB, Mongoose, Axios, ReactStrap, Heroku
 
 # Skills Learned
